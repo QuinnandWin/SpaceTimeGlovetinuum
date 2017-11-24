@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class BasicMovement : MonoBehaviour {
 
-    public float speedIncreasePerFrame = 0.10f;
-    public float maxspeed = 5.0f;
-    private float currentSpeed = 1.50f;
+    [SerializeField]
+    protected float speedIncreasePerFrame = 0.10f;
+    [SerializeField]
+    protected float maxspeed = 5.0f;
+    [SerializeField]
+    protected float startSpeed = 2.0f;
+    private float currentSpeed = 2.0f;
     private float y = 0.0f;
     private int printTimer = 0;
     private int jumpTimer = 0;
@@ -28,6 +32,10 @@ public class BasicMovement : MonoBehaviour {
         float z = Input.GetAxis("Forwards");
         float x = Input.GetAxis("Sideways");
 
+        characterRigidbody.AddForce(x * currentSpeed, 0.0f, z * currentSpeed);
+
+        Move(x, z);
+
         bool jumpPressed = false;
         if (Input.GetAxis("Jump") > 0.0f && characterIsOnGround == true)
         {
@@ -35,13 +43,17 @@ public class BasicMovement : MonoBehaviour {
             characterIsOnGround = false;
         }
 
-        Move(x, z, jumpPressed, characterIsOnGround);
+        if (jumpPressed == true)
+        {
+            Jump(0.0f, true);
+        }
+        
 
 
 
     }
 
-    void Move(float x, float z, bool jumpPressed, bool characterIsOnGround)
+    void Move(float x, float z)
     {
 
         if (x != 0.0f || z != 0.0f)
@@ -56,22 +68,17 @@ public class BasicMovement : MonoBehaviour {
         if (x == 0.0f && z == 0.0f)
         {
             currentSpeed -= (speedIncreasePerFrame*10);
-            if (currentSpeed < 1.50f)
+            if (currentSpeed < startSpeed)
             {
-                currentSpeed = 1.50f;
+                currentSpeed = startSpeed;
             }
         }
 
 
-        if (jumpPressed == true)
-        {
-            y = 1.0f;
-            jumpPressed = false;
-        }
-
         movement.Set(x, y, z);
         //movement = movement.normalized;
-        characterRigidbody.velocity = (movement * currentSpeed);
+        characterRigidbody.AddForce(x * currentSpeed, 0.0f,z * currentSpeed);
+        //characterRigidbody.velocity = (movement * currentSpeed);
         //characterRigidbody.angularVelocity = 0.0f;
 
         printTimer++;
@@ -81,24 +88,9 @@ public class BasicMovement : MonoBehaviour {
             printTimer = 0;
         }
 
-        if (characterIsOnGround == false)
-        {
-            jumpTimer++;
-        }
-        if (jumpTimer >= 60)
-        {
-            y = 0.0f;
-            print(y);
-            print(characterRigidbody.velocity.y);
-            if (characterRigidbody.velocity.y == 0.0f)
-            {
-                y = 0.0f;
-                characterIsOnGround = true;
-            }
-        }
     }
 
-    void Jump(float jumpPressedTime, bool jumpPressed)
+    void Jump(float jumpPressedTime, bool characterIsOnGround)
     {
     }
 }
