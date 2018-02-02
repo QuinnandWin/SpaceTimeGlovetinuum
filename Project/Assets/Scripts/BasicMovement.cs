@@ -4,93 +4,94 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicMovement : MonoBehaviour {
-
     [SerializeField]
-    protected float speedIncreasePerFrame = 0.10f;
+    protected float playerMovementPerSecond = 0.0f;
     [SerializeField]
-    protected float maxspeed = 5.0f;
+    protected float maxPlayerMovementPerSecond = 5.0f;
     [SerializeField]
-    protected float startSpeed = 2.0f;
-    private float currentSpeed = 2.0f;
-    private float y = 0.0f;
-    private int printTimer = 0;
-    private int jumpTimer = 0;
-    private bool characterIsOnGround=true;
-    Vector3 movement;
-    Rigidbody characterRigidbody;
+    protected float minPlayerMovementPerSecond = 0.0f;
+    [SerializeField]
+    protected float playerJumpPerSecond = 5.0f;
+    private float distanceToGround = 1.0f;
+    Rigidbody playerRigidbody;
+    Collider playerCollider;
 
     void Start()
     {
-        characterRigidbody = GetComponent<Rigidbody>();
+        playerRigidbody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<CapsuleCollider>();
+        distanceToGround = (playerCollider.bounds.size.y/2.0f);
     }
 
-    //FixedUpdate processes physics every frame
-    //x and y get values from wasd keys for movement
-    //this is then used to calculate players velocity which is times by public speed so its easier to manipulate in unity
-    void FixedUpdate()
+    void Update()
     {
-        float z = Input.GetAxis("Forwards");
-        float x = Input.GetAxis("Sideways");
-
-        characterRigidbody.AddForce(x * currentSpeed, 0.0f, z * currentSpeed);
-
-        Move(x, z);
-
-        bool jumpPressed = false;
-        if (Input.GetAxis("Jump") > 0.0f && characterIsOnGround == true)
-        {
-            jumpPressed = true;
-            characterIsOnGround = false;
-        }
-
-        if (jumpPressed == true)
-        {
-            Jump(0.0f, true);
-        }
-        
-
-
-
+        Run();
+        Jump();
     }
 
-    void Move(float x, float z)
+    void Run()
     {
-
-        if (x != 0.0f || z != 0.0f)
+        //Player acclerates from 0mps upto 5mps over the course of one second
+        if (Input.GetAxis("Horizontal") != 0.0f || Input.GetAxis("Vertical") != 0.0f)
         {
-            currentSpeed += speedIncreasePerFrame;
-            if (currentSpeed > maxspeed)
+            playerMovementPerSecond += 5.0f * Time.deltaTime;
+            if (playerMovementPerSecond >= maxPlayerMovementPerSecond)
             {
-                currentSpeed = maxspeed;
+                playerMovementPerSecond = maxPlayerMovementPerSecond;
+            }
+            //print(playerMovementPerSecond);
+        }
+        //Player decceleartes from upto 5mps to 0mps over the course of 0.33 of a second
+        if (Input.GetAxis("Horizontal") == 0.0f && Input.GetAxis("Vertical") == 0.0f)
+        {
+            playerMovementPerSecond -= 15.0f * Time.deltaTime;
+            if (playerMovementPerSecond <= minPlayerMovementPerSecond)
+            {
+                playerMovementPerSecond = minPlayerMovementPerSecond;
+            }
+            //print(playerMovementPerSecond);
+        }
+        var x = Input.GetAxis("Horizontal") * Time.deltaTime * playerMovementPerSecond;
+        var z = Input.GetAxis("Vertical") * Time.deltaTime * playerMovementPerSecond;
+
+        transform.Rotate(0, 0, 0);
+        transform.Translate(x, 0, z);
+    }
+
+    void Jump()
+    {
+        /* if (Input.GetAxis("Jump") != 0.0f)
+         {
+             playerJumpPerSecond += 5.0f * Time.deltaTime;
+             if (playerJumpPerSecond >= maxPlayerMovementPerSecond)
+             {
+                 playerJumpPerSecond = maxPlayerMovementPerSecond;
+             }
+             //print(playerJumpPerSecond);
+         }
+         if (Input.GetAxis("Jump") == 0.0f)
+         {
+             playerJumpPerSecond -= 15.0f * Time.deltaTime;
+             if (playerJumpPerSecond <= minPlayerMovementPerSecond)
+             {
+                 playerJumpPerSecond = minPlayerMovementPerSecond;
+             }
+             print(playerJumpPerSecond);
+         } */
+        IsGrounded();
+        print(IsGrounded());
+        if (Input.GetKeyDown("space") == true)
+        {
+            if (IsGrounded())
+            {
+                playerRigidbody.velocity = new Vector3(0.0f, playerJumpPerSecond, 0.0f);
             }
         }
-
-        if (x == 0.0f && z == 0.0f)
-        {
-            currentSpeed -= (speedIncreasePerFrame*10);
-            if (currentSpeed < startSpeed)
-            {
-                currentSpeed = startSpeed;
-            }
-        }
-
-
-        movement.Set(x, y, z);
-        //movement = movement.normalized;
-        characterRigidbody.AddForce(x * currentSpeed, 0.0f,z * currentSpeed);
-        //characterRigidbody.velocity = (movement * currentSpeed);
-        //characterRigidbody.angularVelocity = 0.0f;
-
-        printTimer++;
-        if (printTimer == 15)
-        {
-            print(currentSpeed);
-            printTimer = 0;
-        }
-
     }
 
-    void Jump(float jumpPressedTime, bool characterIsOnGround)
+    bool IsGrounded()
     {
+        return Physics.Raycast(transform.position, -Vector3.up, distanceToGround + 0.1f);
     }
+ 
 }
