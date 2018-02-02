@@ -79,7 +79,7 @@ public class BasicMovement : MonoBehaviour {
              print(playerJumpPerSecond);
          } */
         IsGrounded();
-        print(IsGrounded());
+        //print(IsGrounded());
         if (Input.GetKeyDown("space") == true)
         {
             if (IsGrounded())

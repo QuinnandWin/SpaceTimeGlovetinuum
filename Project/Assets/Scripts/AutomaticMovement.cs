@@ -29,4 +29,5 @@ public class AutomaticMovement : MonoBehaviour {
         }
         i++;
     }
+
 }
