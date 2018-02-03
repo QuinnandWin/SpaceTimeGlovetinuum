@@ -77,10 +77,9 @@ public class BasicMovement : MonoBehaviour {
 
         if (IsGrounded()==false)
         {
-            print(IsGrounded());
             //(Sidewyas momentum - sideways player input)
-            var x = ((preJumpSidewaysMovement * Time.deltaTime * playerMovementPreJump)/0.75f) + (Input.GetAxis("Horizontal") * Time.deltaTime * playerMovementPerSecond);
-            var z = ((preJumpForwardMovement * Time.deltaTime * playerMovementPreJump)/0.75f) + (Input.GetAxis("Vertical") * Time.deltaTime * playerMovementPerSecond);
+            var x = ((preJumpSidewaysMovement * Time.deltaTime * playerMovementPreJump)/0.75f) + (Input.GetAxis("Horizontal") * Time.deltaTime * maxPlayerMovementPerSecond);
+            var z = ((preJumpForwardMovement * Time.deltaTime * playerMovementPreJump)/0.75f) + (Input.GetAxis("Vertical") * Time.deltaTime * maxPlayerMovementPerSecond);
 
             transform.Rotate(0, 0, 0);
             transform.Translate(x/2, 0, z/2);
