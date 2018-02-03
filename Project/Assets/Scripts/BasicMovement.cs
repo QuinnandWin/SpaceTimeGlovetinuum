@@ -15,6 +15,10 @@ public class BasicMovement : MonoBehaviour {
     private float distanceToGround = 1.0f;
     Rigidbody playerRigidbody;
     Collider playerCollider;
+    private Vector3 moveDirection = Vector3.zero;
+    private float preJumpForwardMovement = 0.0f;
+    private float preJumpSidewaysMovement = 0.0f;
+    private float playerMovementPreJump = 0.0f;
 
     void Start()
     {
@@ -31,6 +35,7 @@ public class BasicMovement : MonoBehaviour {
 
     void Run()
     {
+
         //Player acclerates from 0mps upto 5mps over the course of one second
         if (Input.GetAxis("Horizontal") != 0.0f || Input.GetAxis("Vertical") != 0.0f)
         {
@@ -51,33 +56,40 @@ public class BasicMovement : MonoBehaviour {
             }
             //print(playerMovementPerSecond);
         }
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime * playerMovementPerSecond;
-        var z = Input.GetAxis("Vertical") * Time.deltaTime * playerMovementPerSecond;
+        if (IsGrounded())
+        {
+            var x = Input.GetAxis("Horizontal") * Time.deltaTime * playerMovementPerSecond;
+            var z = Input.GetAxis("Vertical") * Time.deltaTime * playerMovementPerSecond;
 
-        transform.Rotate(0, 0, 0);
-        transform.Translate(x, 0, z);
+            transform.Rotate(0, 0, 0);
+            transform.Translate(x, 0, z);
+
+            if(Input.GetAxis("Horizontal") != 0.0f)
+            {
+                preJumpSidewaysMovement = Input.GetAxis("Horizontal");
+            }
+            if (Input.GetAxis("Vertical") != 0.0f)
+            {
+                preJumpForwardMovement = Input.GetAxis("Vertical");
+            }
+            playerMovementPreJump = playerMovementPerSecond;
+        }
+
+        if (IsGrounded()==false)
+        {
+            print(IsGrounded());
+            //(Sidewyas momentum - sideways player input)
+            var x = ((preJumpSidewaysMovement * Time.deltaTime * playerMovementPreJump)/0.75f) + (Input.GetAxis("Horizontal") * Time.deltaTime * playerMovementPerSecond);
+            var z = ((preJumpForwardMovement * Time.deltaTime * playerMovementPreJump)/0.75f) + (Input.GetAxis("Vertical") * Time.deltaTime * playerMovementPerSecond);
+
+            transform.Rotate(0, 0, 0);
+            transform.Translate(x/2, 0, z/2);
+        }
+
     }
 
     void Jump()
     {
-        /* if (Input.GetAxis("Jump") != 0.0f)
-         {
-             playerJumpPerSecond += 5.0f * Time.deltaTime;
-             if (playerJumpPerSecond >= maxPlayerMovementPerSecond)
-             {
-                 playerJumpPerSecond = maxPlayerMovementPerSecond;
-             }
-             //print(playerJumpPerSecond);
-         }
-         if (Input.GetAxis("Jump") == 0.0f)
-         {
-             playerJumpPerSecond -= 15.0f * Time.deltaTime;
-             if (playerJumpPerSecond <= minPlayerMovementPerSecond)
-             {
-                 playerJumpPerSecond = minPlayerMovementPerSecond;
-             }
-             print(playerJumpPerSecond);
-         } */
         IsGrounded();
         //print(IsGrounded());
         if (Input.GetKeyDown("space") == true)
