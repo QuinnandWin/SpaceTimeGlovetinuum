@@ -7,12 +7,17 @@ public class TeleportPlayer : MonoBehaviour {
     [SerializeField]
     protected GameObject teleportLocation;
 
-    void OnTriggerEnter(Collider player)
+    void OnTriggerEnter(Collider deadObject)
     {
-        if (player.gameObject.tag == "Player")
+        if (deadObject.gameObject.tag == "Player")
         {
             print("player has died");
-            player.transform.position = teleportLocation.transform.position;
+            deadObject.transform.position = teleportLocation.transform.position;
+        }
+        if (deadObject.gameObject.tag == "Key")
+        {
+            print("key has died");
+            deadObject.transform.position = teleportLocation.transform.position;
         }
     }
 
