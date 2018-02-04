@@ -18,13 +18,42 @@ public class Button : MonoBehaviour {
     protected GameObject[] alternativeButtons;
     [SerializeField]
     protected GameObject[] affectedObjects;
-// Use this for initialization
-void Start () {
+    [SerializeField]
+    protected bool timerButton = false;
+    [SerializeField]
+    protected float timeGiven = 10.0f;
+    [SerializeField]
+    protected AudioClip timerSound;
+    [SerializeField]
+    protected AudioClip buttonEndSound;
+    private AudioSource buttonAudioSource;
+    private float timeLeft = 0.0f;
 
+    void Start()
+    {
+        timeLeft = timeGiven;
+        buttonAudioSource = this.GetComponent<AudioSource>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+    void Update()
+    {
+        if (buttonIsOn ==true && timerButton == true)
+        {
+            //start timer
+            timeLeft -= Time.deltaTime;
+
+            if(timeLeft<=0)
+            {
+                timeLeft = timeGiven;
+                buttonIsOn = false;
+                for (int i = 0; i < affectedObjects.Length; i++)
+                {
+                    affectedObjects[i].SetActive(false);
+                }
+                buttonAudioSource.clip = buttonEndSound;
+                buttonAudioSource.loop = false;
+                buttonAudioSource.Play();
+            }
+        }
     }
 
     void OnEnable()
@@ -96,6 +125,18 @@ void Start () {
                     }
                     print("player turned multi button off");
                 }
+            }
+            if (timerButton == true)
+            {
+                buttonIsOn = true;
+                timeLeft = timeGiven;
+                for (int i = 0; i < affectedObjects.Length; i++)
+                {
+                    affectedObjects[i].SetActive(true);
+                }
+                buttonAudioSource.clip = timerSound;
+                buttonAudioSource.loop = true;
+                buttonAudioSource.Play();
             }
         }
     }
