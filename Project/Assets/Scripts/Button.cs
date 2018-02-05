@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Button : MonoBehaviour {
-
+    [SerializeField]
+    private string[] tagsToCheck;
     [SerializeField]
     protected bool standardButton = false;
     [SerializeField]
@@ -32,7 +33,7 @@ public class Button : MonoBehaviour {
     void Start()
     {
         timeLeft = timeGiven;
-        buttonAudioSource = this.GetComponent<AudioSource>();
+        buttonAudioSource = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -76,7 +77,15 @@ public class Button : MonoBehaviour {
 
     void OnTriggerEnter(Collider player)
     {
-        if (player.gameObject.tag == "Player")
+        bool matches = false;
+        for(int i =0; i < tagsToCheck.Length; i++)
+        {
+            if (player.gameObject.tag == tagsToCheck[i])
+            {
+                matches = true;
+            }
+        }
+        if (matches)
         {
             if (standardButton == true)
             {

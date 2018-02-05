@@ -31,14 +31,20 @@ public class BasicMovement : MonoBehaviour {
     {
         Run();
         Jump();
+        print(playerRigidbody.velocity);
     }
-
+    Vector3 direction;
     void Run()
     {
+        float inputHoriziontal = Input.GetAxis("Horizontal");
+        float inputVertical = Input.GetAxis("Vertical");        
 
         //Player acclerates from 0mps upto 5mps over the course of one second
-        if (Input.GetAxis("Horizontal") != 0.0f || Input.GetAxis("Vertical") != 0.0f)
+        if (inputHoriziontal != 0.0f || inputVertical != 0.0f)
         {
+            direction = new Vector3(inputHoriziontal, 0, inputVertical);
+            direction.Normalize();
+
             playerMovementPerSecond += 5.0f * Time.deltaTime;
             if (playerMovementPerSecond >= maxPlayerMovementPerSecond)
             {
@@ -47,7 +53,7 @@ public class BasicMovement : MonoBehaviour {
             //print(playerMovementPerSecond);
         }
         //Player decceleartes from upto 5mps to 0mps over the course of 0.33 of a second
-        if (Input.GetAxis("Horizontal") == 0.0f && Input.GetAxis("Vertical") == 0.0f)
+        if (inputHoriziontal == 0.0f && inputVertical == 0.0f)
         {
             playerMovementPerSecond -= 15.0f * Time.deltaTime;
             if (playerMovementPerSecond <= minPlayerMovementPerSecond)
@@ -58,45 +64,59 @@ public class BasicMovement : MonoBehaviour {
         }
         if (IsGrounded())
         {
-            var x = Input.GetAxis("Horizontal") * Time.deltaTime * playerMovementPerSecond;
-            var z = Input.GetAxis("Vertical") * Time.deltaTime * playerMovementPerSecond;
+            var x = direction.x * Time.deltaTime * playerMovementPerSecond * 60;
+            var z = direction.z * Time.deltaTime * playerMovementPerSecond * 60;
 
-            transform.Rotate(0, 0, 0);
-            transform.Translate(x, 0, z);
-
-            if(Input.GetAxis("Horizontal") != 0.0f)
-            {
-                preJumpSidewaysMovement = Input.GetAxis("Horizontal");
-            }
-            if (Input.GetAxis("Vertical") != 0.0f)
-            {
-                preJumpForwardMovement = Input.GetAxis("Vertical");
-            }
-            playerMovementPreJump = playerMovementPerSecond;
+            playerRigidbody.velocity = new Vector3(x, playerRigidbody.velocity.y, z);
+            playerRigidbody.angularVelocity = Vector3.zero;          
         }
 
         if (IsGrounded()==false)
         {
-            //(Sidewyas momentum - sideways player input)
-            var x = ((preJumpSidewaysMovement * Time.deltaTime * playerMovementPreJump)/0.75f) + (Input.GetAxis("Horizontal") * Time.deltaTime * maxPlayerMovementPerSecond);
-            var z = ((preJumpForwardMovement * Time.deltaTime * playerMovementPreJump)/0.75f) + (Input.GetAxis("Vertical") * Time.deltaTime * maxPlayerMovementPerSecond);
+            playerRigidbody.velocity += direction * Time.deltaTime * playerMovementPerSecond * 2;
+            playerRigidbody.angularVelocity = Vector3.zero;
 
-            transform.Rotate(0, 0, 0);
-            transform.Translate(x/2, 0, z/2);
+            float newX = playerRigidbody.velocity.x;
+            float maxVelocityAir = 5.0f;
+            if((inputHoriziontal > 0.8|| inputHoriziontal < -0.8) && 
+                (inputVertical > 0.8 || inputVertical < -0.8))
+            {
+                maxVelocityAir = 3.6f;
+            }
+            if (newX > maxVelocityAir)
+            {
+                newX = maxVelocityAir;
+            }
+            else if(newX < -maxVelocityAir)
+            {
+                newX = -maxVelocityAir;
+            }
+            float newZ = playerRigidbody.velocity.z;
+            if (newZ > maxVelocityAir)
+                newZ = maxVelocityAir;
+            else if (newZ < -maxVelocityAir)
+                newZ = -maxVelocityAir;
+
+            playerRigidbody.velocity = new Vector3(newX, playerRigidbody.velocity.y, newZ);
         }
 
     }
-
+    bool released = true;
     void Jump()
     {
         IsGrounded();
         //print(IsGrounded());
-        if (Input.GetKeyDown("space") == true)
+        if (Input.GetAxis("Jump") > 0)
         {
-            if (IsGrounded())
+            if (IsGrounded() && released)
             {
                 playerRigidbody.velocity = new Vector3(0.0f, playerJumpPerSecond, 0.0f);
             }
+            released = false;
+        }
+        else
+        {
+            released = true;
         }
     }
 

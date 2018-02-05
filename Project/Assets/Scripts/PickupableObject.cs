@@ -3,38 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupableObject : MonoBehaviour {
-
+    
     [SerializeField]
-    protected GameObject keyObject;
-    [SerializeField]
-    protected GameObject playerObject;
+    private GameObject playerObject;
     private Rigidbody keyRigidbody;
-    public bool carryingObject = false;
+
+    private bool carryingObject = false;
     private bool playerWithinRange = false;
+    private bool interactReleased = true;
+    
 	// Use this for initialization
 	void Start () {
-        keyRigidbody = keyObject.GetComponent<Rigidbody>();
-
+        keyRigidbody = GetComponent<Rigidbody>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (playerWithinRange == true && Input.GetKeyDown("e") == true && carryingObject == false)
+        if (Input.GetAxis("Interact") > 0)
         {
-            print("player has picked up object");
-            keyObject.transform.parent = playerObject.transform;
-            keyObject.transform.position = playerObject.transform.position;
-            keyObject.transform.Translate(0, 0.65f, 0);
-            keyRigidbody.useGravity = false;
-            carryingObject = true;
+            if (playerWithinRange == true  && carryingObject == false && interactReleased)
+            {
+                print("player has picked up object");
+                transform.parent = playerObject.transform;
+                transform.position = playerObject.transform.position;
+                transform.Translate(0, 0.65f, 0);
+                keyRigidbody.useGravity = false;
+                carryingObject = true;
+                GetComponent<Collider>().enabled = false;
+            }
+            else if (playerWithinRange == true && carryingObject == true && interactReleased)
+            {
+                print("player has dropped an object");
+                transform.parent = null;
+                keyRigidbody.useGravity = true;
+                transform.Translate(0.0f, 0.3f, 0.3f);
+                carryingObject = false;
+                GetComponent<Collider>().enabled = true;
+            }
+            interactReleased = false;
         }
-        else if (playerWithinRange == true && Input.GetKeyDown("e") == true && carryingObject == true)
+        else
         {
-            print("player has dropped an object");
-            keyObject.transform.parent = null;
-            keyRigidbody.useGravity = true;
-            keyObject.transform.Translate(0.0f, 0.3f, 0.3f);
-            carryingObject = false;
+            interactReleased = true;
         }
     }
 
