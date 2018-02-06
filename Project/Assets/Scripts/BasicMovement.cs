@@ -120,11 +120,11 @@ public class BasicMovement : MonoBehaviour {
             //Velocity for second jump
             if (jumpCounter >= 2)
             {
-                maxVelocityAir = 3.0f;
+                maxVelocityAir = 2.0f;
                 if ((inputHoriziontal > 0.8 || inputHoriziontal < -0.8) &&
                     (inputVertical > 0.8 || inputVertical < -0.8))
                 {
-                    maxVelocityAir = 2.2f;
+                    maxVelocityAir = 1.5f;
                 }
                 if (newX > maxVelocityAir)
                 {
