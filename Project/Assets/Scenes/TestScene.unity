@@ -3860,7 +3860,10 @@ MonoBehaviour:
   playerMovementPerSecond: 0.1
   maxPlayerMovementPerSecond: 5
   minPlayerMovementPerSecond: 0
-  playerJumpPerSecond: 5
+  playerJumpHeight: 6
+  NoJump: {fileID: 2100000, guid: eb0b3eddf8fd557449ecea1b77800047, type: 2}
+  FirstJump: {fileID: 2100000, guid: b91d9fa91b8b3df46917cf915cbdef58, type: 2}
+  DoubleJump: {fileID: 2100000, guid: faa064a13542d8542bd72331415e0d19, type: 2}
 --- !u!54 &1307698926
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4161,7 +4164,10 @@ MonoBehaviour:
   playerMovementPerSecond: 0
   maxPlayerMovementPerSecond: 5
   minPlayerMovementPerSecond: 0
-  playerJumpPerSecond: 5
+  playerJumpHeight: 5
+  NoJump: {fileID: 0}
+  FirstJump: {fileID: 0}
+  DoubleJump: {fileID: 0}
 --- !u!1 &1466197923
 GameObject:
   m_ObjectHideFlags: 0

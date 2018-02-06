@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class BasicMovement : MonoBehaviour {
     [SerializeField]
-    protected float playerMovementPerSecond = 0.0f;
+    private float playerMovementPerSecond = 0.0f;
     [SerializeField]
-    protected float maxPlayerMovementPerSecond = 5.0f;
+    private float maxPlayerMovementPerSecond = 5.0f;
     [SerializeField]
-    protected float minPlayerMovementPerSecond = 0.0f;
+    private float minPlayerMovementPerSecond = 0.0f;
     [SerializeField]
-    protected float playerJumpPerSecond = 5.0f;
+    private float playerJumpHeight = 6.0f;
     private float distanceToGround = 1.0f;
     Rigidbody playerRigidbody;
     Collider playerCollider;
@@ -19,6 +19,10 @@ public class BasicMovement : MonoBehaviour {
     private float preJumpForwardMovement = 0.0f;
     private float preJumpSidewaysMovement = 0.0f;
     private float playerMovementPreJump = 0.0f;
+    private int jumpCounter = 0;
+    public Material NoJump;
+    public Material FirstJump;
+    public Material DoubleJump;
 
     void Start()
     {
@@ -29,9 +33,22 @@ public class BasicMovement : MonoBehaviour {
 
     void Update()
     {
-        Run();
         Jump();
+        Run();
         print(playerRigidbody.velocity);
+        //Visual indicator for jumps
+        if (jumpCounter==0)
+        {
+            GetComponent<Renderer>().material = NoJump;
+        }
+        else if (jumpCounter == 1)
+        {
+            GetComponent<Renderer>().material = FirstJump;
+        }
+        else if (jumpCounter == 2)
+        {
+            GetComponent<Renderer>().material = DoubleJump;
+        }
     }
     Vector3 direction;
     void Run()
@@ -77,25 +94,51 @@ public class BasicMovement : MonoBehaviour {
             playerRigidbody.angularVelocity = Vector3.zero;
 
             float newX = playerRigidbody.velocity.x;
-            float maxVelocityAir = 5.0f;
-            if((inputHoriziontal > 0.8|| inputHoriziontal < -0.8) && 
-                (inputVertical > 0.8 || inputVertical < -0.8))
-            {
-                maxVelocityAir = 3.7f;
-            }
-            if (newX > maxVelocityAir)
-            {
-                newX = maxVelocityAir;
-            }
-            else if(newX < -maxVelocityAir)
-            {
-                newX = -maxVelocityAir;
-            }
             float newZ = playerRigidbody.velocity.z;
-            if (newZ > maxVelocityAir)
-                newZ = maxVelocityAir;
-            else if (newZ < -maxVelocityAir)
-                newZ = -maxVelocityAir;
+            float maxVelocityAir = 5.0f;
+            //Velocity for first jump
+            if (jumpCounter <= 1)
+            {
+                if ((inputHoriziontal > 0.8 || inputHoriziontal < -0.8) &&
+                    (inputVertical > 0.8 || inputVertical < -0.8))
+                {
+                    maxVelocityAir = 3.7f;
+                }
+                if (newX > maxVelocityAir)
+                {
+                    newX = maxVelocityAir;
+                }
+                else if (newX < -maxVelocityAir)
+                {
+                    newX = -maxVelocityAir;
+                }
+                if (newZ > maxVelocityAir)
+                    newZ = maxVelocityAir;
+                else if (newZ < -maxVelocityAir)
+                    newZ = -maxVelocityAir;
+            }
+            //Velocity for second jump
+            if (jumpCounter >= 2)
+            {
+                maxVelocityAir = 3.0f;
+                if ((inputHoriziontal > 0.8 || inputHoriziontal < -0.8) &&
+                    (inputVertical > 0.8 || inputVertical < -0.8))
+                {
+                    maxVelocityAir = 2.2f;
+                }
+                if (newX > maxVelocityAir)
+                {
+                    newX = maxVelocityAir;
+                }
+                else if (newX < -maxVelocityAir)
+                {
+                    newX = -maxVelocityAir;
+                }
+                if (newZ > maxVelocityAir)
+                    newZ = maxVelocityAir;
+                else if (newZ < -maxVelocityAir)
+                    newZ = -maxVelocityAir;
+            }
 
             playerRigidbody.velocity = new Vector3(newX, playerRigidbody.velocity.y, newZ);
         }
@@ -104,13 +147,23 @@ public class BasicMovement : MonoBehaviour {
     bool released = true;
     void Jump()
     {
-        IsGrounded();
-        //print(IsGrounded());
+        if(IsGrounded() && released)
+        {
+            jumpCounter = 0;
+        }
         if (Input.GetAxis("Jump") > 0)
         {
             if (IsGrounded() && released)
             {
-                playerRigidbody.velocity += new Vector3(0.0f, playerJumpPerSecond, 0.0f);
+                playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0.0f, playerRigidbody.velocity.z);
+                playerRigidbody.velocity += new Vector3(0.0f, playerJumpHeight, 0.0f);
+                jumpCounter++;
+            }
+            else if (jumpCounter <= 1 && released)
+            {
+                playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0.0f, playerRigidbody.velocity.z);
+                playerRigidbody.velocity += new Vector3(0.0f, playerJumpHeight/1.5f, 0.0f);
+                jumpCounter=2;
             }
             released = false;
         }
