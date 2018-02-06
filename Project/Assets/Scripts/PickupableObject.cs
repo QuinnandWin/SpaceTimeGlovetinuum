@@ -26,7 +26,7 @@ public class PickupableObject : MonoBehaviour {
                 print("player has picked up object");
                 transform.parent = playerObject.transform;
                 transform.position = playerObject.transform.position;
-                transform.Translate(0, 0.65f, 0);
+                transform.Translate(0, 1.00f, 0);
                 keyRigidbody.useGravity = false;
                 carryingObject = true;
                 GetComponent<Collider>().enabled = false;
@@ -45,6 +45,11 @@ public class PickupableObject : MonoBehaviour {
         else
         {
             interactReleased = true;
+        }
+        if (carryingObject)
+        {
+            transform.position = playerObject.transform.position;
+            transform.Translate(0, 0.75f, 0);
         }
     }
 

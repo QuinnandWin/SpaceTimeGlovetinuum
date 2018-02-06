@@ -55,7 +55,7 @@ public class BasicMovement : MonoBehaviour {
         //Player decceleartes from upto 5mps to 0mps over the course of 0.33 of a second
         if (inputHoriziontal == 0.0f && inputVertical == 0.0f)
         {
-            playerMovementPerSecond -= 15.0f * Time.deltaTime;
+            playerMovementPerSecond -= 30.0f * Time.deltaTime;
             if (playerMovementPerSecond <= minPlayerMovementPerSecond)
             {
                 playerMovementPerSecond = minPlayerMovementPerSecond;
@@ -73,7 +73,7 @@ public class BasicMovement : MonoBehaviour {
 
         if (IsGrounded()==false)
         {
-            playerRigidbody.velocity += direction * Time.deltaTime * playerMovementPerSecond * 2;
+            playerRigidbody.velocity += direction * Time.deltaTime * playerMovementPerSecond * 5;
             playerRigidbody.angularVelocity = Vector3.zero;
 
             float newX = playerRigidbody.velocity.x;
