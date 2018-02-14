@@ -1410,7 +1410,6 @@ MonoBehaviour:
   cameraYPosition: 1
   cameraZPosition: -14.1
   cameraFOV: 60
-  cameraInside: 0
 --- !u!65 &264684623
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1784,7 +1783,6 @@ MonoBehaviour:
   cameraYPosition: 4
   cameraZPosition: -4
   cameraFOV: 60
-  cameraInside: 0
 --- !u!65 &390808781
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2679,7 +2677,7 @@ MonoBehaviour:
   gameCameraObject: {fileID: 1096715544}
   gameCamera: {fileID: 1096715548}
   followX: 1
-  followY: 1
+  followY: 0
   followZ: 1
   xAngle: 45
   yAngle: 0
@@ -2688,7 +2686,6 @@ MonoBehaviour:
   cameraYPosition: 3
   cameraZPosition: -3
   cameraFOV: 60
-  cameraInside: 0
 --- !u!65 &641240263
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5358,7 +5355,6 @@ MonoBehaviour:
   cameraYPosition: 6
   cameraZPosition: -1
   cameraFOV: 60
-  cameraInside: 0
 --- !u!65 &1772328048
 BoxCollider:
   m_ObjectHideFlags: 0

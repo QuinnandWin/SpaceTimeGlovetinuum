@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveCamera : MonoBehaviour {
+public class MoveCamera : MonoBehaviour
+{
 
     [SerializeField]
     private GameObject player;
@@ -32,16 +33,24 @@ public class MoveCamera : MonoBehaviour {
     private float cameraFOV = 60.0f;
     private bool cameraInside = false;
     private float timer = 0.0f;
+    private float previousCameraX = 0.0f;
+    private float previousCameraY = 0.0f;
+    private float previousCameraZ = 0.0f;
     private float differenceInX = 0.0f;
     private float differenceInY = 0.0f;
     private float differenceInZ = 0.0f;
+    private float currentCameraXPosition;
+    private float currentCameraYPosition;
+    private float currentCameraZPosition;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         gameCamera.fieldOfView = cameraFOV;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (cameraInside)
         {
             //All different variations based on whether the camera is following the players x, y and z position.
@@ -51,22 +60,36 @@ public class MoveCamera : MonoBehaviour {
                 gameCamera.transform.eulerAngles = new Vector3(xAngle, yAngle, zAngle);
                 if (followX && followY && followZ)
                 {
-                    differenceInX = gameCamera.transform.position.x - player.transform.position.x;
-                    differenceInY = (player.transform.position.y + cameraYPosition) - gameCamera.transform.position.x;
-                    differenceInZ = (player.transform.position.z + cameraZPosition) - gameCamera.transform.position.z;
-                    if (timer < 1.0f)
+                    for (int i = 0; i < 1; i++)
                     {
-                        gameCamera.transform.Translate(differenceInX * Time.deltaTime,
-                            differenceInY * Time.deltaTime,
-                            differenceInZ * Time.deltaTime);
+                        previousCameraX = 0;
+                        currentCameraXPosition = previousCameraX;
+                        differenceInX = cameraXPosition - previousCameraX;
+
+                        previousCameraY = 2.0f;
+                        currentCameraYPosition = previousCameraY;
+                        differenceInY = cameraYPosition - previousCameraY;
+
+                        previousCameraZ = -2.0f;
+                        currentCameraZPosition = previousCameraZ;
+                        differenceInZ = cameraZPosition - previousCameraZ;
                     }
-                    else
+                    while (currentCameraXPosition != cameraXPosition)
                     {
-                        gameCamera.transform.position = new Vector3(player.transform.position.x,
-                        player.transform.position.y + cameraYPosition,
-                        player.transform.position.z + cameraZPosition);
+                        currentCameraXPosition += differenceInX * Time.deltaTime;
+                    }
+                    while (currentCameraYPosition != cameraYPosition)
+                    {
+                        currentCameraYPosition += differenceInY * Time.deltaTime;
+                    }
+                    while (currentCameraZPosition > cameraZPosition)
+                    {
+                        currentCameraZPosition += differenceInZ * Time.deltaTime;
                     }
 
+                    gameCamera.transform.position = new Vector3(player.transform.position.x,
+                    player.transform.position.y + currentCameraYPosition,
+                    player.transform.position.z + currentCameraZPosition);
                 }
                 else if (followX && followY)
                 {
@@ -114,12 +137,12 @@ public class MoveCamera : MonoBehaviour {
                 }
             }
         }
-	}
+    }
 
 
     void OnTriggerEnter(Collider playerCollider)
     {
-       if(playerCollider.gameObject.tag == "Player")
+        if (playerCollider.gameObject.tag == "Player")
         {
             gameCamera.transform.eulerAngles = new Vector3(xAngle, yAngle, zAngle);
             cameraInside = true;
