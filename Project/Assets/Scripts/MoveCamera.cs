@@ -32,7 +32,7 @@ public class MoveCamera : MonoBehaviour
     [SerializeField]
     private float cameraFOV = 60.0f;
     private bool cameraInside = false;
-    private float timer = 0.0f;
+   /* private float timer = 0.0f;
     private float previousCameraX = 0.0f;
     private float previousCameraY = 0.0f;
     private float previousCameraZ = 0.0f;
@@ -41,7 +41,7 @@ public class MoveCamera : MonoBehaviour
     private float differenceInZ = 0.0f;
     private float currentCameraXPosition;
     private float currentCameraYPosition;
-    private float currentCameraZPosition;
+    private float currentCameraZPosition;*/
     // Use this for initialization
     void Start()
     {
@@ -56,40 +56,43 @@ public class MoveCamera : MonoBehaviour
             //All different variations based on whether the camera is following the players x, y and z position.
             if (followX || followY || followZ)
             {
-                timer += Time.deltaTime;
+                //timer += Time.deltaTime;
                 gameCamera.transform.eulerAngles = new Vector3(xAngle, yAngle, zAngle);
                 if (followX && followY && followZ)
                 {
-                    for (int i = 0; i < 1; i++)
-                    {
-                        previousCameraX = 0;
-                        currentCameraXPosition = previousCameraX;
-                        differenceInX = cameraXPosition - previousCameraX;
+                    /* for (int i = 0; i < 1; i++)
+                     {
+                         previousCameraX = 0;
+                         currentCameraXPosition = previousCameraX;
+                         differenceInX = cameraXPosition - previousCameraX;
 
-                        previousCameraY = 2.0f;
-                        currentCameraYPosition = previousCameraY;
-                        differenceInY = cameraYPosition - previousCameraY;
+                         previousCameraY = 2.0f;
+                         currentCameraYPosition = previousCameraY;
+                         differenceInY = cameraYPosition - previousCameraY;
 
-                        previousCameraZ = -2.0f;
-                        currentCameraZPosition = previousCameraZ;
-                        differenceInZ = cameraZPosition - previousCameraZ;
-                    }
-                    while (currentCameraXPosition != cameraXPosition)
-                    {
-                        currentCameraXPosition += differenceInX * Time.deltaTime;
-                    }
-                    while (currentCameraYPosition != cameraYPosition)
-                    {
-                        currentCameraYPosition += differenceInY * Time.deltaTime;
-                    }
-                    while (currentCameraZPosition > cameraZPosition)
-                    {
-                        currentCameraZPosition += differenceInZ * Time.deltaTime;
-                    }
+                         previousCameraZ = -2.0f;
+                         currentCameraZPosition = previousCameraZ;
+                         differenceInZ = cameraZPosition - previousCameraZ;
+                     }
+                     while (currentCameraXPosition < cameraXPosition)
+                     {
+                         currentCameraXPosition += differenceInX * Time.deltaTime;
+                     }
+
+                         currentCameraYPosition += differenceInY * Time.deltaTime;
+
+                     while (currentCameraZPosition > cameraZPosition)
+                     {
+                         currentCameraZPosition += differenceInZ * Time.deltaTime;
+                     }
+
+                     gameCamera.transform.position = new Vector3(player.transform.position.x,
+                     player.transform.position.y + currentCameraYPosition,
+                     player.transform.position.z + currentCameraZPosition);*/
 
                     gameCamera.transform.position = new Vector3(player.transform.position.x,
-                    player.transform.position.y + currentCameraYPosition,
-                    player.transform.position.z + currentCameraZPosition);
+                    player.transform.position.y + cameraYPosition,
+                    player.transform.position.z - cameraZPosition);
                 }
                 else if (followX && followY)
                 {
@@ -99,17 +102,10 @@ public class MoveCamera : MonoBehaviour
                 }
                 else if (followX && followZ)
                 {
-                    if (timer < 1.0f)
-                    {
-                        gameCamera.transform.Translate(player.transform.position.x * 0.01f * Time.deltaTime,
-                            (cameraYPosition) * 0.01f * Time.deltaTime,
-                            (player.transform.position.z + cameraZPosition) * 0.01f * Time.deltaTime);
-                    }
-                    else {
-                        gameCamera.transform.position = new Vector3(player.transform.position.x,
-                        cameraYPosition,
-                        player.transform.position.z + cameraZPosition);
-                    }
+                    gameCamera.transform.position = new Vector3(player.transform.position.x,
+                    cameraYPosition,
+                    player.transform.position.z + cameraZPosition);
+
                 }
                 else if (followX)
                 {
@@ -154,7 +150,7 @@ public class MoveCamera : MonoBehaviour
         if (playerCollider.gameObject.tag == "Player")
         {
             cameraInside = false;
-            timer = 0.0f;
+            //timer = 0.0f;
         }
     }
 }

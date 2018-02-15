@@ -809,7 +809,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 171772544}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4105179, y: 0, z: -0.761}
+  m_LocalPosition: {x: -0.434, y: 0, z: -0.761}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children:
   - {fileID: 390808779}
@@ -1420,7 +1420,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 8.61, z: 1}
+  m_Size: {x: 0.8, y: 15, z: 0.7}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &285158308
 GameObject:
@@ -1780,8 +1780,8 @@ MonoBehaviour:
   yAngle: 0
   zAngle: 0
   cameraXPosition: 0
-  cameraYPosition: 4
-  cameraZPosition: -4
+  cameraYPosition: 5
+  cameraZPosition: 5
   cameraFOV: 60
 --- !u!65 &390808781
 BoxCollider:
@@ -1793,7 +1793,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 14.52, z: 0.73}
+  m_Size: {x: 0.8, y: 15, z: 0.7}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &420687563
 GameObject:
@@ -2677,14 +2677,14 @@ MonoBehaviour:
   gameCameraObject: {fileID: 1096715544}
   gameCamera: {fileID: 1096715548}
   followX: 1
-  followY: 0
+  followY: 1
   followZ: 1
   xAngle: 45
   yAngle: 0
   zAngle: 0
   cameraXPosition: 0
   cameraYPosition: 3
-  cameraZPosition: -3
+  cameraZPosition: 3
   cameraFOV: 60
 --- !u!65 &641240263
 BoxCollider:
@@ -3076,7 +3076,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 807232996}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.089, y: 0, z: -0.761}
+  m_LocalPosition: {x: 0.085, y: 0, z: -0.761}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children:
   - {fileID: 1772328046}
@@ -3323,7 +3323,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 822151476}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.576, y: 0, z: -0.761}
+  m_LocalPosition: {x: 0.5912, y: 0, z: -0.761}
   m_LocalScale: {x: 0.5, y: 1, z: 0.5}
   m_Children:
   - {fileID: 264684621}
@@ -5365,7 +5365,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 8.61, z: 1}
+  m_Size: {x: 0.8, y: 15, z: 0.7}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1784149458
 GameObject:
