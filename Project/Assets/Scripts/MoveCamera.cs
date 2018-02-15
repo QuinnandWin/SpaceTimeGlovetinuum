@@ -32,16 +32,18 @@ public class MoveCamera : MonoBehaviour
     [SerializeField]
     private float cameraFOV = 60.0f;
     private bool cameraInside = false;
-   /* private float timer = 0.0f;
-    private float previousCameraX = 0.0f;
-    private float previousCameraY = 0.0f;
-    private float previousCameraZ = 0.0f;
-    private float differenceInX = 0.0f;
-    private float differenceInY = 0.0f;
-    private float differenceInZ = 0.0f;
-    private float currentCameraXPosition;
-    private float currentCameraYPosition;
-    private float currentCameraZPosition;*/
+    /* private float timer = 0.0f;
+     private float previousCameraX = 0.0f;
+     private float previousCameraY = 0.0f;
+     private float previousCameraZ = 0.0f;
+     private float differenceInX = 0.0f;
+     private float differenceInY = 0.0f;
+     private float differenceInZ = 0.0f;
+     private float currentCameraXPosition;
+     private float currentCameraYPosition;
+     private float currentCameraZPosition;*/
+
+    private bool animating = false;
     // Use this for initialization
     void Start()
     {
@@ -58,9 +60,29 @@ public class MoveCamera : MonoBehaviour
             {
                 //timer += Time.deltaTime;
                 gameCamera.transform.eulerAngles = new Vector3(xAngle, yAngle, zAngle);
+
+                if (animating == false)
+                {
+                    float realX = 0;
+                    if (followX)
+                        realX = player.transform.position.x;
+                    float realY = cameraYPosition;
+                    if (followY)
+                        realY = player.transform.position.y + cameraYPosition;
+                    float realZ = cameraZPosition;
+                    if (followZ)
+                        realZ = player.transform.position.z + cameraZPosition;
+
+                    gameCamera.transform.position = new Vector3(realX, realY, realZ);
+                }
+                else
+                {
+
+                }
+                /*
                 if (followX && followY && followZ)
                 {
-                    /* for (int i = 0; i < 1; i++)
+                     for (int i = 0; i < 1; i++)
                      {
                          previousCameraX = 0;
                          currentCameraXPosition = previousCameraX;
@@ -88,51 +110,24 @@ public class MoveCamera : MonoBehaviour
 
                      gameCamera.transform.position = new Vector3(player.transform.position.x,
                      player.transform.position.y + currentCameraYPosition,
-                     player.transform.position.z + currentCameraZPosition);*/
-
-                    gameCamera.transform.position = new Vector3(player.transform.position.x,
-                    player.transform.position.y + cameraYPosition,
-                    player.transform.position.z - cameraZPosition);
-                }
-                else if (followX && followY)
-                {
-                    gameCamera.transform.position = new Vector3(player.transform.position.x,
-                    player.transform.position.y + cameraYPosition,
-                    cameraZPosition);
-                }
-                else if (followX && followZ)
-                {
-                    gameCamera.transform.position = new Vector3(player.transform.position.x,
-                    cameraYPosition,
-                    player.transform.position.z + cameraZPosition);
-
-                }
-                else if (followX)
-                {
-                    gameCamera.transform.position = new Vector3(player.transform.position.x,
-                    cameraYPosition,
-                    cameraZPosition);
-                }
-                else if (followY && followZ)
-                {
-                    gameCamera.transform.position = new Vector3(cameraXPosition,
-                    player.transform.position.y + cameraYPosition,
-                    player.transform.position.z - cameraZPosition);
-                }
-                else if (followY)
-                {
-                    gameCamera.transform.position = new Vector3(cameraXPosition,
-                    player.transform.position.y + cameraYPosition,
-                    cameraZPosition);
-                }
-                else if (followZ)
-                {
-                    gameCamera.transform.position = new Vector3(0.0f,
-                    cameraYPosition,
-                    player.transform.position.z - cameraZPosition);
-                }
+                     player.transform.position.z + currentCameraZPosition);
+                     
+                }*/
             }
         }
+    }
+
+    private IEnumerator Animate()
+    {
+        float startTime = Time.time;
+        float endTime = Time.time + 1.0f;
+
+        while(true)
+        {
+
+        }
+
+        yield return null;
     }
 
 
@@ -142,6 +137,7 @@ public class MoveCamera : MonoBehaviour
         {
             gameCamera.transform.eulerAngles = new Vector3(xAngle, yAngle, zAngle);
             cameraInside = true;
+            animating = true;
         }
     }
 

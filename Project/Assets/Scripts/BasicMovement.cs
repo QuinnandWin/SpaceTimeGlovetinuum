@@ -81,8 +81,8 @@ public class BasicMovement : MonoBehaviour {
         }
         if (IsGrounded())
         {
-            var x = direction.x * Time.deltaTime * playerMovementPerSecond * 30;
-            var z = direction.z * Time.deltaTime * playerMovementPerSecond * 30;
+            var x = direction.x * Time.deltaTime * playerMovementPerSecond * 60;
+            var z = direction.z * Time.deltaTime * playerMovementPerSecond * 60;
 
             playerRigidbody.velocity = new Vector3(x, playerRigidbody.velocity.y, z);
             playerRigidbody.angularVelocity = Vector3.zero;          
