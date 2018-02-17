@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 65282822772546768}
   - component: {fileID: 65788102638005696}
   - component: {fileID: 114631880781170346}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MovingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,6 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -70,7 +69,6 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -131,6 +129,8 @@ MonoBehaviour:
   timeUntilRotationReverse: 2
   movementReverse: 1
   rotationReverse: 0
+  stopsAtReverse: 1
+  timeStopped: 1
 --- !u!114 &114631880781170346
 MonoBehaviour:
   m_ObjectHideFlags: 1

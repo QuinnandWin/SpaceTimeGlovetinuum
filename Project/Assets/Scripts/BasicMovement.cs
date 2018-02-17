@@ -23,6 +23,7 @@ public class BasicMovement : MonoBehaviour {
     public Material NoJump;
     public Material FirstJump;
     public Material DoubleJump;
+    public float timesSpeedBy = 30.0f;
 
     void Start()
     {
@@ -35,7 +36,7 @@ public class BasicMovement : MonoBehaviour {
     {
         Jump();
         Run();
-        print(playerRigidbody.velocity);
+        //print(playerRigidbody.velocity);
         //Visual indicator for jumps
         if (jumpCounter==0)
         {
@@ -81,8 +82,8 @@ public class BasicMovement : MonoBehaviour {
         }
         if (IsGrounded())
         {
-            var x = direction.x * Time.deltaTime * playerMovementPerSecond * 60;
-            var z = direction.z * Time.deltaTime * playerMovementPerSecond * 60;
+            var x = direction.x * Time.deltaTime * playerMovementPerSecond * timesSpeedBy;
+            var z = direction.z * Time.deltaTime * playerMovementPerSecond * timesSpeedBy;
 
             playerRigidbody.velocity = new Vector3(x, playerRigidbody.velocity.y, z);
             playerRigidbody.angularVelocity = Vector3.zero;          
@@ -90,7 +91,7 @@ public class BasicMovement : MonoBehaviour {
 
         if (IsGrounded()==false)
         {
-            playerRigidbody.velocity += direction * Time.deltaTime * playerMovementPerSecond * 5;
+            playerRigidbody.velocity += direction * Time.deltaTime * playerMovementPerSecond * 3;
             playerRigidbody.angularVelocity = Vector3.zero;
 
             float newX = playerRigidbody.velocity.x;

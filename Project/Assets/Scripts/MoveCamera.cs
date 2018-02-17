@@ -60,12 +60,12 @@ public class MoveCamera : MonoBehaviour
             {
                 //timer += Time.deltaTime;
                 gameCamera.transform.eulerAngles = new Vector3(xAngle, yAngle, zAngle);
-
+                animating = false;
                 if (animating == false)
                 {
-                    float realX = 0;
+                    float realX = cameraXPosition;
                     if (followX)
-                        realX = player.transform.position.x;
+                        realX = player.transform.position.x + cameraXPosition;
                     float realY = cameraYPosition;
                     if (followY)
                         realY = player.transform.position.y + cameraYPosition;
@@ -137,7 +137,7 @@ public class MoveCamera : MonoBehaviour
         {
             gameCamera.transform.eulerAngles = new Vector3(xAngle, yAngle, zAngle);
             cameraInside = true;
-            animating = true;
+            //animating = true;
         }
     }
 
