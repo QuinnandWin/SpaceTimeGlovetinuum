@@ -24,7 +24,8 @@ public class BasicMovement : MonoBehaviour {
     public Material FirstJump;
     public Material DoubleJump;
     public float timesSpeedBy = 30.0f;
-
+    private float inputVertical=0.0f;
+    private float inputHoriziontal = 0.0f;
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
@@ -34,8 +35,8 @@ public class BasicMovement : MonoBehaviour {
 
     void Update()
     {
-        Jump();
-        Run();
+        inputHoriziontal = Input.GetAxis("Horizontal");
+        inputVertical = Input.GetAxis("Vertical");
         //print(playerRigidbody.velocity);
         //Visual indicator for jumps
         if (jumpCounter==0)
@@ -51,19 +52,23 @@ public class BasicMovement : MonoBehaviour {
             GetComponent<Renderer>().material = DoubleJump;
         }
     }
+
+    private void FixedUpdate()
+    {
+        Jump();
+        Run();
+    }
     Vector3 direction;
     void Run()
     {
-        float inputHoriziontal = Input.GetAxis("Horizontal");
-        float inputVertical = Input.GetAxis("Vertical");        
-
+      
         //Player acclerates from 0mps upto 5mps over the course of one second
         if (inputHoriziontal != 0.0f || inputVertical != 0.0f)
         {
             direction = new Vector3(inputHoriziontal, 0, inputVertical);
             direction.Normalize();
 
-            playerMovementPerSecond += 5.0f * Time.deltaTime;
+            playerMovementPerSecond += 5.0f * Time.unscaledDeltaTime;
             if (playerMovementPerSecond >= maxPlayerMovementPerSecond)
             {
                 playerMovementPerSecond = maxPlayerMovementPerSecond;
@@ -73,7 +78,7 @@ public class BasicMovement : MonoBehaviour {
         //Player decceleartes from upto 5mps to 0mps over the course of 0.33 of a second
         if (inputHoriziontal == 0.0f && inputVertical == 0.0f)
         {
-            playerMovementPerSecond -= 30.0f * Time.deltaTime;
+            playerMovementPerSecond -= 30.0f * Time.unscaledDeltaTime;
             if (playerMovementPerSecond <= minPlayerMovementPerSecond)
             {
                 playerMovementPerSecond = minPlayerMovementPerSecond;
@@ -82,8 +87,8 @@ public class BasicMovement : MonoBehaviour {
         }
         if (IsGrounded())
         {
-            var x = direction.x * Time.deltaTime * playerMovementPerSecond * timesSpeedBy;
-            var z = direction.z * Time.deltaTime * playerMovementPerSecond * timesSpeedBy;
+            var x = direction.x * Time.unscaledDeltaTime * playerMovementPerSecond * timesSpeedBy;
+            var z = direction.z * Time.unscaledDeltaTime * playerMovementPerSecond * timesSpeedBy;
 
             playerRigidbody.velocity = new Vector3(x, playerRigidbody.velocity.y, z);
             playerRigidbody.angularVelocity = Vector3.zero;          
@@ -91,19 +96,19 @@ public class BasicMovement : MonoBehaviour {
 
         if (IsGrounded()==false)
         {
-            playerRigidbody.velocity += direction * Time.deltaTime * playerMovementPerSecond * 3;
+            playerRigidbody.velocity += direction * Time.unscaledDeltaTime * playerMovementPerSecond * 3;
             playerRigidbody.angularVelocity = Vector3.zero;
 
             float newX = playerRigidbody.velocity.x;
             float newZ = playerRigidbody.velocity.z;
-            float maxVelocityAir = 5.0f;
+            float maxVelocityAir = 4.2f;
             //Velocity for first jump
             if (jumpCounter <= 1)
             {
                 if ((inputHoriziontal > 0.8 || inputHoriziontal < -0.8) &&
                     (inputVertical > 0.8 || inputVertical < -0.8))
                 {
-                    maxVelocityAir = 3.7f;
+                    maxVelocityAir = 3.2f;
                 }
                 if (newX > maxVelocityAir)
                 {
