@@ -82,6 +82,9 @@ public class MoveCamera : MonoBehaviour
             gameCamera.GetComponent<SmoothCamera>().nextXAngle = xAngle;
             gameCamera.GetComponent<SmoothCamera>().nextYAngle = yAngle;
             gameCamera.GetComponent<SmoothCamera>().nextZAngle = zAngle;
+            gameCamera.GetComponent<SmoothCamera>().followX = followX;
+            gameCamera.GetComponent<SmoothCamera>().followY = followY;
+            gameCamera.GetComponent<SmoothCamera>().followZ = followZ;
             //animating = true;
         }
     }
@@ -90,6 +93,7 @@ public class MoveCamera : MonoBehaviour
     {
         if (playerCollider.gameObject.tag == "Player")
         {
+            gameCamera.GetComponent<SmoothCamera>().playerPositionGrabbed = false;
             cameraInside = false;
         }
     }
