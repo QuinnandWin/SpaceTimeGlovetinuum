@@ -3916,9 +3916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ebeb83050a8a94fba83213eb903101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousXPosition: 0
-  previousYPosition: 0
-  previousZPosition: 0
   nextXPosition: 0
   nextYPosition: 0
   nextZPosition: 0
@@ -3929,6 +3926,10 @@ MonoBehaviour:
   nextXAngle: 0
   nextYAngle: 0
   nextZAngle: 0
+  followX: 0
+  followY: 0
+  followZ: 0
+  playerPositionGrabbed: 0
 --- !u!1 &1118607187
 GameObject:
   m_ObjectHideFlags: 0
