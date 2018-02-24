@@ -14,12 +14,16 @@ public class CoinManager : MonoBehaviour {
     private bool coinUI = false;
     [SerializeField]
     private bool superCoinUI = false;
+    private int previousCoinCount;
+    private int previousSuperCoinCount;
+    private AudioSource coinPickup;
 
 
     void Awake()
     {
         // Set up the reference.
         coinText = GetComponent<Text>();
+        coinPickup = GetComponent<AudioSource>();
 
         if (removeCoins == true)
         {
@@ -56,6 +60,16 @@ public class CoinManager : MonoBehaviour {
         if(superCoinUI)
         {
             coinText.text = "SuperCoins: " + superCoins + "/4";
+        }
+        if (coins > previousCoinCount)
+        {
+            coinPickup.Play();
+            previousCoinCount = coins;
+        }
+        if (superCoins > previousSuperCoinCount)
+        {
+            coinPickup.Play();
+            previousSuperCoinCount = superCoins;
         }
     }
 }

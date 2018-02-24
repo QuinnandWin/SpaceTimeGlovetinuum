@@ -8,19 +8,23 @@ public class GainCoins : MonoBehaviour {
     private bool isCoin = false;
     [SerializeField]
     private bool isSuperCoin = false;
-    [SerializeField]
-    private AudioSource coinPickup;
+
+
+    private float yRotationSpeed = 45.0f;
+    private float yRotation;
 
 
     // Use this for initialization
     void Start () {
-        coinPickup = GetComponent<AudioSource>();
+
+        yRotation = GetComponent<Transform>().eulerAngles.y;
 
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        yRotation += yRotationSpeed * Time.deltaTime;
+        GetComponent<Transform>().eulerAngles = new Vector3(0, yRotation, 0);
 	}
 
     void OnTriggerEnter(Collider player)
@@ -34,9 +38,9 @@ public class GainCoins : MonoBehaviour {
 
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
-            coinPickup.Play();
 
-            DestroyObject(this, 1.0f);
+
+            DestroyObject(this.gameObject, 1.0f);
         }
     }
 

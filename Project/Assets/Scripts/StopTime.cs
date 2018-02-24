@@ -29,7 +29,7 @@ public class StopTime : MonoBehaviour
     bool released = true;
     void ActivateTimeStop()
     {
-        if (Input.GetAxis("Ability") > 0)
+        /*if (Input.GetAxis("Ability") > 0)
         {
             if (timeIsStopped == false && released)
             {
@@ -54,6 +54,6 @@ public class StopTime : MonoBehaviour
         else
         {
             released = true;
-        }
+        }*/
     }
 }
