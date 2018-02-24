@@ -29,6 +29,10 @@ public class Button : MonoBehaviour {
     protected AudioClip buttonEndSound;
     private AudioSource buttonAudioSource;
     private float timeLeft = 0.0f;
+    [SerializeField]
+    protected bool enableObject = true;
+    [SerializeField]
+    protected bool activateScript = false;
 
     void Start()
     {
@@ -46,9 +50,19 @@ public class Button : MonoBehaviour {
             {
                 timeLeft = timeGiven;
                 buttonIsOn = false;
-                for (int i = 0; i < affectedObjects.Length; i++)
+                if(enableObject==true)
                 {
-                    affectedObjects[i].SetActive(false);
+                    for (int i = 0; i < affectedObjects.Length; i++)
+                    {
+                        affectedObjects[i].SetActive(false);
+                    }
+                }
+                else if (activateScript == true)
+                {
+                    for (int i = 0; i < affectedObjects.Length; i++)
+                    {
+                        affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = true;
+                    }
                 }
                 buttonAudioSource.clip = buttonEndSound;
                 buttonAudioSource.loop = false;
@@ -61,16 +75,36 @@ public class Button : MonoBehaviour {
     {
         if (buttonIsOn)
         {
-            for (int i = 0; i < affectedObjects.Length; i++)
+            if (enableObject == true)
             {
-                affectedObjects[i].SetActive(true);
+                for (int i = 0; i < affectedObjects.Length; i++)
+                {
+                    affectedObjects[i].SetActive(true);
+                }
+            }
+            else if (activateScript == true)
+            {
+                for (int i = 0; i < affectedObjects.Length; i++)
+                {
+                    affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = false;
+                }
             }
         }
         else if (buttonIsOn == false)
         {
-            for (int i = 0; i < affectedObjects.Length; i++)
+            if (enableObject == true)
             {
-                affectedObjects[i].SetActive(false);
+                for (int i = 0; i < affectedObjects.Length; i++)
+                {
+                    affectedObjects[i].SetActive(false);
+                }
+            }
+            else if (activateScript == true)
+            {
+                for (int i = 0; i < affectedObjects.Length; i++)
+                {
+                    affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = true;
+                }
             }
         }
     }
@@ -93,18 +127,38 @@ public class Button : MonoBehaviour {
                 {
                     print("player turned standard button on");
                     buttonIsOn = true;
-                    for (int i = 0; i < affectedObjects.Length; i++)
+                    if (enableObject == true)
                     {
-                        affectedObjects[i].SetActive(true);
+                        for (int i = 0; i < affectedObjects.Length; i++)
+                        {
+                            affectedObjects[i].SetActive(true);
+                        }
+                    }
+                    else if (activateScript == true)
+                    {
+                        for (int i = 0; i < affectedObjects.Length; i++)
+                        {
+                            affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = false;
+                        }
                     }
                 }
                 else if (buttonIsOn == true)
                 {
                     print("player turned standard button off");
                     buttonIsOn = false;
-                    for (int i = 0; i < affectedObjects.Length; i++)
+                    if (enableObject == true)
                     {
-                        affectedObjects[i].SetActive(false);
+                        for (int i = 0; i < affectedObjects.Length; i++)
+                        {
+                            affectedObjects[i].SetActive(false);
+                        }
+                    }
+                    else if (activateScript == true)
+                    {
+                        for (int i = 0; i < affectedObjects.Length; i++)
+                        {
+                            affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = true;
+                        }
                     }
                 }
             }
@@ -112,25 +166,55 @@ public class Button : MonoBehaviour {
             {
                 print("player turned pressure button on");
                 buttonIsOn = true;
-                for (int i = 0; i < affectedObjects.Length; i++)
+                if (enableObject == true)
                 {
-                    affectedObjects[i].SetActive(true);
+                    for (int i = 0; i < affectedObjects.Length; i++)
+                    {
+                        affectedObjects[i].SetActive(true);
+                    }
+                }
+                else if (activateScript == true)
+                {
+                    for (int i = 0; i < affectedObjects.Length; i++)
+                    {
+                        affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = false;
+                    }
                 }
             }
             if ( multiButton == true)
             {
                 buttonIsOn = true;
                 print("player turned multi button on");
-                for (int i = 0; i < affectedObjects.Length; i++)
+                if (enableObject == true)
                 {
-                    affectedObjects[i].SetActive(true);
+                    for (int i = 0; i < affectedObjects.Length; i++)
+                    {
+                        affectedObjects[i].SetActive(true);
+                    }
+                }
+                else if (activateScript == true)
+                {
+                    for (int i = 0; i < affectedObjects.Length; i++)
+                    {
+                        affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = false;
+                    }
                 }
                 for (int i = 0; i < alternativeButtons.Length; i++)
                 {
                     alternativeButtons[i].GetComponent<Button>().buttonIsOn = false;
-                    for (int x = 0; x < alternativeButtons[i].GetComponent<Button>().affectedObjects.Length; x++)
+                    if (enableObject == true)
                     {
-                        alternativeButtons[i].GetComponent<Button>().affectedObjects[x].SetActive(false);
+                        for (int x = 0; x < affectedObjects.Length; x++)
+                        {
+                            affectedObjects[x].SetActive(false);
+                        }
+                    }
+                    else if (activateScript == true)
+                    {
+                        for (int x = 0; x < affectedObjects.Length; x++)
+                        {
+                            affectedObjects[x].GetComponent<AutomaticMovement>().stopTimeActivated = true;
+                        }
                     }
                     print("player turned multi button off");
                 }
@@ -158,9 +242,19 @@ public class Button : MonoBehaviour {
             {
                 print("player turned pressure button off");
                 buttonIsOn = false;
-                for (int i = 0; i < affectedObjects.Length; i++)
+                if (enableObject == true)
                 {
-                    affectedObjects[i].SetActive(false);
+                    for (int i = 0; i < affectedObjects.Length; i++)
+                    {
+                        affectedObjects[i].SetActive(false);
+                    }
+                }
+                else if (activateScript == true)
+                {
+                    for (int i = 0; i < affectedObjects.Length; i++)
+                    {
+                        affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = true;
+                    }
                 }
             }
         }

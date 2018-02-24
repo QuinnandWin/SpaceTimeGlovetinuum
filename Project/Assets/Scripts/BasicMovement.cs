@@ -96,19 +96,19 @@ public class BasicMovement : MonoBehaviour {
 
         if (IsGrounded()==false)
         {
-            playerRigidbody.velocity += direction * Time.unscaledDeltaTime * playerMovementPerSecond * 3;
+            playerRigidbody.velocity += direction * Time.unscaledDeltaTime * playerMovementPerSecond * 2;
             playerRigidbody.angularVelocity = Vector3.zero;
 
             float newX = playerRigidbody.velocity.x;
             float newZ = playerRigidbody.velocity.z;
-            float maxVelocityAir = 4.2f;
+            float maxVelocityAir = 3.0f;
             //Velocity for first jump
             if (jumpCounter <= 1)
             {
                 if ((inputHoriziontal > 0.8 || inputHoriziontal < -0.8) &&
                     (inputVertical > 0.8 || inputVertical < -0.8))
                 {
-                    maxVelocityAir = 3.2f;
+                    maxVelocityAir = 2.3f;
                 }
                 if (newX > maxVelocityAir)
                 {
@@ -126,11 +126,11 @@ public class BasicMovement : MonoBehaviour {
             //Velocity for second jump
             if (jumpCounter >= 2)
             {
-                maxVelocityAir = 2.0f;
+                maxVelocityAir = 1.5f;
                 if ((inputHoriziontal > 0.8 || inputHoriziontal < -0.8) &&
                     (inputVertical > 0.8 || inputVertical < -0.8))
                 {
-                    maxVelocityAir = 1.5f;
+                    maxVelocityAir = 1.1f;
                 }
                 if (newX > maxVelocityAir)
                 {

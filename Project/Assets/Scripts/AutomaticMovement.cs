@@ -46,7 +46,7 @@ public class AutomaticMovement : MonoBehaviour
         }
         movementTimeLeft = timeUntilMovementReverse;
         rotationTimeLeft = timeUntilRotationReverse;
-        timeStoppedLeft = timePlatformIsStopped;
+        timeStoppedLeft = 0.0f;
         tempx = xMovementSpeed;
         tempy = yMovementSpeed;
         tempz = zMovementSpeed;
