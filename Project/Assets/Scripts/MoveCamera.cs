@@ -31,6 +31,14 @@ public class MoveCamera : MonoBehaviour
     private float cameraZPosition = -6.0f;
     [SerializeField]
     private bool cameraInside = false;
+    [SerializeField]
+    private bool disablesObjects = false;
+    [SerializeField]
+    private GameObject[] objectsToBeDisabled;
+    [SerializeField]
+    private bool enablesObjects = false;
+    [SerializeField]
+    private GameObject[] objectsToBeEnabled;
 
     // Use this for initialization
     void Start()
@@ -85,7 +93,11 @@ public class MoveCamera : MonoBehaviour
             gameCamera.GetComponent<SmoothCamera>().followX = followX;
             gameCamera.GetComponent<SmoothCamera>().followY = followY;
             gameCamera.GetComponent<SmoothCamera>().followZ = followZ;
-            //animating = true;
+           
+            for(int i = 0; i<objectsToBeDisabled.Length; i++)
+            {
+                objectsToBeDisabled[i].SetActive(false);
+            }
         }
     }
 
@@ -95,6 +107,11 @@ public class MoveCamera : MonoBehaviour
         {
             gameCamera.GetComponent<SmoothCamera>().playerPositionGrabbed = false;
             cameraInside = false;
+
+            for (int i = 0; i < objectsToBeDisabled.Length; i++)
+            {
+                objectsToBeDisabled[i].SetActive(true);
+            }
         }
     }
 }
