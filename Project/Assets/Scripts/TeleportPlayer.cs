@@ -5,19 +5,31 @@ using UnityEngine;
 public class TeleportPlayer : MonoBehaviour {
 
     [SerializeField]
-    protected GameObject teleportLocation;
+    public GameObject teleportLocation;
+    [SerializeField]
+    private GameObject tempDeathObjects;
+    [SerializeField]
+    private bool checkpoint = false;
 
-    void OnTriggerEnter(Collider deadObject)
+    void OnTriggerEnter(Collider teleportedObject)
     {
-        if (deadObject.gameObject.tag == "Player")
+        if (teleportedObject.gameObject.tag == "Player")
         {
-            print("player has died");
-            deadObject.transform.position = teleportLocation.transform.position;
+            if(checkpoint == false)
+            {
+                print("player has died");
+                teleportedObject.transform.position = teleportLocation.transform.position;
+            }
+            else
+            {
+                tempDeathObjects.GetComponent<TeleportPlayer>().teleportLocation = this.gameObject;
+            }
+            
         }
-        if (deadObject.gameObject.tag == "Key")
+        if (teleportedObject.gameObject.tag == "Key")
         {
             print("key has died");
-            deadObject.transform.position = teleportLocation.transform.position;
+            teleportedObject.transform.position = teleportLocation.transform.position;
         }
     }
 

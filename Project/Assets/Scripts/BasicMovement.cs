@@ -96,7 +96,7 @@ public class BasicMovement : MonoBehaviour {
 
         if (IsGrounded()==false)
         {
-            playerRigidbody.velocity += direction * Time.unscaledDeltaTime * playerMovementPerSecond * 3;
+            playerRigidbody.velocity += direction * Time.unscaledDeltaTime * playerMovementPerSecond * 2;
             playerRigidbody.angularVelocity = Vector3.zero;
 
             float newX = playerRigidbody.velocity.x;
