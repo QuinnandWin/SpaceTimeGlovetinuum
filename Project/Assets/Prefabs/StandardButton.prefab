@@ -98,7 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tagsToCheck:
   - Player
-  - Key
   standardButton: 1
   pressureButton: 0
   multiButton: 0
@@ -111,6 +110,8 @@ MonoBehaviour:
   timeGiven: 10
   timerSound: {fileID: 0}
   buttonEndSound: {fileID: 0}
+  enableObject: 1
+  activateScript: 0
 --- !u!135 &135337432884134120
 SphereCollider:
   m_ObjectHideFlags: 1
