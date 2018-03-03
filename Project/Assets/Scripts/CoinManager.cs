@@ -29,7 +29,7 @@ public class CoinManager : MonoBehaviour {
         if (removeCoins == true)
         {
             // Reset the score.
-            coins = 98;
+            coins = 0;
         }
     }
 

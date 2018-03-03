@@ -12,6 +12,11 @@ public class BasicMovement : MonoBehaviour {
     private float minPlayerMovementPerSecond = 0.0f;
     [SerializeField]
     private float playerJumpHeight = 6.0f;
+    [SerializeField]
+    private AudioClip firstJumpSound;
+    [SerializeField]
+    private AudioClip secondJumpSound;
+    private AudioSource playerAudioSource;
     private float distanceToGround = 1.0f;
     Rigidbody playerRigidbody;
     Collider playerCollider;
@@ -31,6 +36,7 @@ public class BasicMovement : MonoBehaviour {
         playerRigidbody = GetComponent<Rigidbody>();
         playerCollider = GetComponent<CapsuleCollider>();
         distanceToGround = (playerCollider.bounds.size.y/2.0f);
+        playerAudioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -42,14 +48,25 @@ public class BasicMovement : MonoBehaviour {
         if (jumpCounter==0)
         {
             GetComponent<Renderer>().material = NoJump;
+            playerAudioSource.clip = null;
         }
         else if (jumpCounter == 1)
         {
             GetComponent<Renderer>().material = FirstJump;
+            if(playerAudioSource.clip != firstJumpSound)
+            { 
+                playerAudioSource.clip = firstJumpSound;
+                playerAudioSource.Play();
+            }
         }
         else if (jumpCounter == 2)
         {
             GetComponent<Renderer>().material = DoubleJump;
+            if (playerAudioSource.clip != secondJumpSound)
+            {
+                playerAudioSource.clip = secondJumpSound;
+                playerAudioSource.Play();
+            }
         }
     }
 
