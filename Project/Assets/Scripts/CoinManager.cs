@@ -25,10 +25,11 @@ public class CoinManager : MonoBehaviour {
         coinText = GetComponent<Text>();
         coinPickup = GetComponent<AudioSource>();
 
+
         if (removeCoins == true)
         {
             // Reset the score.
-            coins = 0;
+            coins = 98;
         }
     }
 

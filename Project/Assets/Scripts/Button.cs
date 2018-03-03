@@ -6,33 +6,37 @@ public class Button : MonoBehaviour {
     [SerializeField]
     private string[] tagsToCheck;
     [SerializeField]
-    protected bool standardButton = false;
+    private bool standardButton = false;
     [SerializeField]
-    protected bool pressureButton = false;
+    private bool pressureButton = false;
     [SerializeField]
-    protected bool multiButton = false;
+    private bool multiButton = false;
     [SerializeField]
-    protected bool buttonIsOn = false;
+    private bool buttonIsOn = false;
     [SerializeField]
-    protected bool checkedButtonOnce = false;
+    private bool checkedButtonOnce = false;
     [SerializeField]
-    protected GameObject[] alternativeButtons;
+    private GameObject[] alternativeButtons;
     [SerializeField]
-    protected GameObject[] affectedObjects;
+    private GameObject[] affectedObjects;
     [SerializeField]
-    protected bool timerButton = false;
+    private bool timerButton = false;
     [SerializeField]
-    protected float timeGiven = 10.0f;
+    private float timeGiven = 10.0f;
     [SerializeField]
-    protected AudioClip timerSound;
+    private AudioClip timerSound;
     [SerializeField]
-    protected AudioClip buttonEndSound;
+    private AudioClip buttonEndSound;
+    [SerializeField]
+    private AudioClip buttonOnSound;
+    [SerializeField]
+    private AudioClip buttonOffSound;
     private AudioSource buttonAudioSource;
     private float timeLeft = 0.0f;
     [SerializeField]
-    protected bool enableObject = true;
+    private bool enableObject = true;
     [SerializeField]
-    protected bool activateScript = false;
+    private bool activateScript = false;
 
     void Start()
     {
@@ -50,7 +54,7 @@ public class Button : MonoBehaviour {
             {
                 timeLeft = timeGiven;
                 buttonIsOn = false;
-                if(enableObject==true)
+                if (enableObject==true)
                 {
                     for (int i = 0; i < affectedObjects.Length; i++)
                     {
@@ -127,6 +131,8 @@ public class Button : MonoBehaviour {
                 {
                     print("player turned standard button on");
                     buttonIsOn = true;
+                    buttonAudioSource.clip = buttonOnSound;
+                    buttonAudioSource.Play();
                     if (enableObject == true)
                     {
                         for (int i = 0; i < affectedObjects.Length; i++)
@@ -146,6 +152,8 @@ public class Button : MonoBehaviour {
                 {
                     print("player turned standard button off");
                     buttonIsOn = false;
+                    buttonAudioSource.clip = buttonOffSound;
+                    buttonAudioSource.Play();
                     if (enableObject == true)
                     {
                         for (int i = 0; i < affectedObjects.Length; i++)
@@ -166,6 +174,8 @@ public class Button : MonoBehaviour {
             {
                 print("player turned pressure button on");
                 buttonIsOn = true;
+                buttonAudioSource.clip = buttonOnSound;
+                buttonAudioSource.Play();
                 if (enableObject == true)
                 {
                     for (int i = 0; i < affectedObjects.Length; i++)
@@ -184,6 +194,8 @@ public class Button : MonoBehaviour {
             if ( multiButton == true)
             {
                 buttonIsOn = true;
+                buttonAudioSource.clip = buttonOnSound;
+                buttonAudioSource.Play();
                 print("player turned multi button on");
                 if (enableObject == true)
                 {
@@ -222,6 +234,8 @@ public class Button : MonoBehaviour {
             if (timerButton == true)
             {
                 buttonIsOn = true;
+                buttonAudioSource.clip = buttonOnSound;
+                buttonAudioSource.Play();
                 timeLeft = timeGiven;
                 for (int i = 0; i < affectedObjects.Length; i++)
                 {
@@ -242,6 +256,8 @@ public class Button : MonoBehaviour {
             {
                 print("player turned pressure button off");
                 buttonIsOn = false;
+                buttonAudioSource.clip = buttonOffSound;
+                buttonAudioSource.Play();
                 if (enableObject == true)
                 {
                     for (int i = 0; i < affectedObjects.Length; i++)
