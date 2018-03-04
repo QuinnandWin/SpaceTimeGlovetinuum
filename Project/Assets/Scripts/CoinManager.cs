@@ -57,20 +57,25 @@ public class CoinManager : MonoBehaviour {
                 // Set the displayed text to be the word "Score" followed by the score value.
                 coinText.text = "Coins:" + coins;
             }
+            if (coins > previousCoinCount)
+            {
+                coinPickup.Play();
+                previousCoinCount = coins;
+            }
         }
-        if(superCoinUI)
-        {
-            coinText.text = "SuperCoins: " + superCoins + "/4";
-        }
-        if (coins > previousCoinCount)
-        {
-            coinPickup.Play();
-            previousCoinCount = coins;
-        }
-        if (superCoins > previousSuperCoinCount)
+        else if (superCoins > previousSuperCoinCount)
         {
             coinPickup.Play();
             previousSuperCoinCount = superCoins;
+            Invoke("UpdateUI", 1.0f);
+        }
+    }
+
+    void UpdateUI()
+    {
+        if (superCoinUI)
+        {
+            coinText.text = "SuperCoins: " + superCoins + "/4";
         }
     }
 }
