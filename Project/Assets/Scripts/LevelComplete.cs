@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelComplete : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class LevelComplete : MonoBehaviour
             playerObject = player.gameObject;
             EndLevel();
             Invoke("LoadOverworld", 5.0f);
+            //StartCoroutine(AsyncLoadOverworld());
         }
     }
 
@@ -56,8 +58,19 @@ public class LevelComplete : MonoBehaviour
         playerObject.GetComponent<Animator>().SetBool("LevelComplete", true);
     }
 
+    IEnumerator AsyncLoadOverworld()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Overworld");
+
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+
     void LoadOverworld()
     {
-
+        SceneManager.LoadScene("Overworld");
     }
+
 }
