@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Button
   - Key
+  - Enemy
   layers:
   - Default
   - TransparentFX
