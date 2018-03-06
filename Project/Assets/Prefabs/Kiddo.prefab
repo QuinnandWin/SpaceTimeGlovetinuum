@@ -25,6 +25,8 @@ GameObject:
   - component: {fileID: 54918460319517670}
   - component: {fileID: 114399396260655178}
   - component: {fileID: 114653548953283896}
+  - component: {fileID: 82869014913407646}
+  - component: {fileID: 95645196683578982}
   m_Layer: 9
   m_Name: Kiddo
   m_TagString: Player
@@ -39,7 +41,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1966033178130662}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 82.72, y: 11.6, z: 24.71}
+  m_LocalPosition: {x: -1.633, y: 2, z: -5}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -101,6 +103,103 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!82 &82869014913407646
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1966033178130662}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!95 &95645196683578982
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1966033178130662}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c9c6d2fde2a5e9744a842418f2522e15, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114399396260655178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,8 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94275f5f1c9567848bc2d285dcd4649a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovementPerSecond: 0.1
-  maxPlayerMovementPerSecond: 3.5
+  playerMovementPerSecond: 0
+  maxPlayerMovementPerSecond: 5
   minPlayerMovementPerSecond: 0
   playerJumpHeight: 6
   firstJumpSound: {fileID: 8300000, guid: eaa624d392a329e479088ffccfd5dd51, type: 3}
@@ -121,7 +220,7 @@ MonoBehaviour:
   NoJump: {fileID: 2100000, guid: eb0b3eddf8fd557449ecea1b77800047, type: 2}
   FirstJump: {fileID: 2100000, guid: b91d9fa91b8b3df46917cf915cbdef58, type: 2}
   DoubleJump: {fileID: 2100000, guid: faa064a13542d8542bd72331415e0d19, type: 2}
-  timesSpeedBy: 50
+  timesSpeedBy: 30
 --- !u!114 &114653548953283896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,17 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e3466fd8399664eb94501635580ff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stoppableObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  stoppableObjects: []
 --- !u!136 &136155176562265074
 CapsuleCollider:
   m_ObjectHideFlags: 1
