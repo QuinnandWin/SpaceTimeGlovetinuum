@@ -5901,8 +5901,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 87519219}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.25, y: -2.003, z: -9.44}
-  m_LocalScale: {x: 0.47436345, y: 1.25233, z: 0.42555168}
+  m_LocalPosition: {x: 23.723766, y: -2.0051987, z: -8.725401}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 265569474}
   - {fileID: 1693403734}
@@ -85419,7 +85419,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: acd13ac31247fe94381d9f0d0e87d04e, type: 2}
+  - {fileID: 2100000, guid: 0946553be0690b24695246227816e926, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104439,10 +104439,6 @@ Prefab:
         type: 2}
       propertyPath: buttonOffEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1652925707147776, guid: 510f5ab827385f14a98dd7f9f22063d6, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 33201184214784354, guid: 510f5ab827385f14a98dd7f9f22063d6, type: 2}
