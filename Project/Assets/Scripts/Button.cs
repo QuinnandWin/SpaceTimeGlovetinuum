@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Button : MonoBehaviour {
+public class Button : MonoBehaviour
+{
     [SerializeField]
     private string[] tagsToCheck;
     [SerializeField]
@@ -12,13 +14,9 @@ public class Button : MonoBehaviour {
     [SerializeField]
     private bool multiButton = false;
     [SerializeField]
-    private bool buttonIsOn = false;
+    public bool buttonIsOn = false;
     [SerializeField]
     private bool checkedButtonOnce = false;
-    [SerializeField]
-    private GameObject[] alternativeButtons;
-    [SerializeField]
-    private GameObject[] affectedObjects;
     [SerializeField]
     private bool timerButton = false;
     [SerializeField]
@@ -34,9 +32,9 @@ public class Button : MonoBehaviour {
     private AudioSource buttonAudioSource;
     private float timeLeft = 0.0f;
     [SerializeField]
-    private bool enableObject = true;
+    private UnityEvent buttonOnEvents;
     [SerializeField]
-    private bool activateScript = false;
+    private UnityEvent buttonOffEvents;
 
     void Start()
     {
@@ -45,78 +43,29 @@ public class Button : MonoBehaviour {
     }
     void Update()
     {
-        if (buttonIsOn ==true && timerButton == true)
+        if (buttonIsOn == true && timerButton == true)
         {
             //start timer
             timeLeft -= Time.deltaTime;
 
-            if(timeLeft<=0)
+            if (timeLeft <= 0)
             {
                 timeLeft = timeGiven;
                 buttonIsOn = false;
-                if (enableObject==true)
-                {
-                    for (int i = 0; i < affectedObjects.Length; i++)
-                    {
-                        affectedObjects[i].SetActive(false);
-                    }
-                }
-                else if (activateScript == true)
-                {
-                    for (int i = 0; i < affectedObjects.Length; i++)
-                    {
-                        affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = true;
-                    }
-                }
-                buttonAudioSource.clip = buttonEndSound;
-                buttonAudioSource.loop = false;
-                buttonAudioSource.Play();
+                TriggerButton();
             }
         }
     }
 
     void OnEnable()
     {
-        if (buttonIsOn)
-        {
-            if (enableObject == true)
-            {
-                for (int i = 0; i < affectedObjects.Length; i++)
-                {
-                    affectedObjects[i].SetActive(true);
-                }
-            }
-            else if (activateScript == true)
-            {
-                for (int i = 0; i < affectedObjects.Length; i++)
-                {
-                    affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = false;
-                }
-            }
-        }
-        else if (buttonIsOn == false)
-        {
-            if (enableObject == true)
-            {
-                for (int i = 0; i < affectedObjects.Length; i++)
-                {
-                    affectedObjects[i].SetActive(false);
-                }
-            }
-            else if (activateScript == true)
-            {
-                for (int i = 0; i < affectedObjects.Length; i++)
-                {
-                    affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = true;
-                }
-            }
-        }
+        TriggerButton();
     }
 
     void OnTriggerEnter(Collider player)
     {
         bool matches = false;
-        for(int i =0; i < tagsToCheck.Length; i++)
+        for (int i = 0; i < tagsToCheck.Length; i++)
         {
             if (player.gameObject.tag == tagsToCheck[i])
             {
@@ -131,116 +80,33 @@ public class Button : MonoBehaviour {
                 {
                     print("player turned standard button on");
                     buttonIsOn = true;
-                    buttonAudioSource.clip = buttonOnSound;
-                    buttonAudioSource.Play();
-                    if (enableObject == true)
-                    {
-                        for (int i = 0; i < affectedObjects.Length; i++)
-                        {
-                            affectedObjects[i].SetActive(true);
-                        }
-                    }
-                    else if (activateScript == true)
-                    {
-                        for (int i = 0; i < affectedObjects.Length; i++)
-                        {
-                            affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = false;
-                        }
-                    }
                 }
-                else if (buttonIsOn == true)
+                else
                 {
                     print("player turned standard button off");
                     buttonIsOn = false;
-                    buttonAudioSource.clip = buttonOffSound;
-                    buttonAudioSource.Play();
-                    if (enableObject == true)
-                    {
-                        for (int i = 0; i < affectedObjects.Length; i++)
-                        {
-                            affectedObjects[i].SetActive(false);
-                        }
-                    }
-                    else if (activateScript == true)
-                    {
-                        for (int i = 0; i < affectedObjects.Length; i++)
-                        {
-                            affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = true;
-                        }
-                    }
                 }
+
+                TriggerButton();
             }
             if (pressureButton == true)
             {
                 print("player turned pressure button on");
                 buttonIsOn = true;
-                buttonAudioSource.clip = buttonOnSound;
-                buttonAudioSource.Play();
-                if (enableObject == true)
-                {
-                    for (int i = 0; i < affectedObjects.Length; i++)
-                    {
-                        affectedObjects[i].SetActive(true);
-                    }
-                }
-                else if (activateScript == true)
-                {
-                    for (int i = 0; i < affectedObjects.Length; i++)
-                    {
-                        affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = false;
-                    }
-                }
+                TurnOnButton();
             }
-            if ( multiButton == true)
+            if (multiButton == true)
             {
                 buttonIsOn = true;
-                buttonAudioSource.clip = buttonOnSound;
-                buttonAudioSource.Play();
                 print("player turned multi button on");
-                if (enableObject == true)
-                {
-                    for (int i = 0; i < affectedObjects.Length; i++)
-                    {
-                        affectedObjects[i].SetActive(true);
-                    }
-                }
-                else if (activateScript == true)
-                {
-                    for (int i = 0; i < affectedObjects.Length; i++)
-                    {
-                        affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = false;
-                    }
-                }
-                for (int i = 0; i < alternativeButtons.Length; i++)
-                {
-                    alternativeButtons[i].GetComponent<Button>().buttonIsOn = false;
-                    if (enableObject == true)
-                    {
-                        for (int x = 0; x < affectedObjects.Length; x++)
-                        {
-                            affectedObjects[x].SetActive(false);
-                        }
-                    }
-                    else if (activateScript == true)
-                    {
-                        for (int x = 0; x < affectedObjects.Length; x++)
-                        {
-                            affectedObjects[x].GetComponent<AutomaticMovement>().stopTimeActivated = true;
-                        }
-                    }
-                    print("player turned multi button off");
-                }
+                TriggerButton();
+                print("player turned multi button off");
             }
             if (timerButton == true)
             {
                 buttonIsOn = true;
-                buttonAudioSource.clip = buttonOnSound;
-                buttonAudioSource.Play();
                 timeLeft = timeGiven;
-                for (int i = 0; i < affectedObjects.Length; i++)
-                {
-                    affectedObjects[i].SetActive(true);
-                }
+                TurnOnButton();
                 buttonAudioSource.clip = timerSound;
                 buttonAudioSource.loop = true;
                 buttonAudioSource.Play();
@@ -256,23 +122,37 @@ public class Button : MonoBehaviour {
             {
                 print("player turned pressure button off");
                 buttonIsOn = false;
-                buttonAudioSource.clip = buttonOffSound;
-                buttonAudioSource.Play();
-                if (enableObject == true)
-                {
-                    for (int i = 0; i < affectedObjects.Length; i++)
-                    {
-                        affectedObjects[i].SetActive(false);
-                    }
-                }
-                else if (activateScript == true)
-                {
-                    for (int i = 0; i < affectedObjects.Length; i++)
-                    {
-                        affectedObjects[i].GetComponent<AutomaticMovement>().stopTimeActivated = true;
-                    }
-                }
+                TurnOffButton();
             }
         }
+    }
+
+    public void ChangeButton(bool value)
+    {
+        buttonIsOn = value;
+        TriggerButton();
+    }
+
+    private void TriggerButton()
+    {
+        if (buttonIsOn)
+            TurnOnButton();
+        else
+            TurnOffButton();
+    }
+
+    private void TurnOnButton()
+    {
+        buttonOnEvents.Invoke();
+        buttonAudioSource.Stop();
+        buttonAudioSource.loop = false;
+        buttonAudioSource.PlayOneShot(buttonOnSound);
+    }
+    private void TurnOffButton()
+    {
+        buttonOffEvents.Invoke();
+        buttonAudioSource.Stop();
+        buttonAudioSource.loop = false;
+        buttonAudioSource.PlayOneShot(buttonOffSound);
     }
 }

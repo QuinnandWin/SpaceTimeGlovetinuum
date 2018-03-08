@@ -111,4 +111,9 @@ public class AutomaticMovement : MonoBehaviour
             }
         }
     }
+
+    public void ToggleMovement()
+    {
+        stopTimeActivated = !stopTimeActivated;
+    }
 }
