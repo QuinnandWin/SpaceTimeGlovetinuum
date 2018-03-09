@@ -35,11 +35,13 @@ public class Button : MonoBehaviour
     private UnityEvent buttonOnEvents;
     [SerializeField]
     private UnityEvent buttonOffEvents;
+    private Animator animatorHandler;
 
-    void Start()
+    void Awake()
     {
         timeLeft = timeGiven;
         buttonAudioSource = GetComponent<AudioSource>();
+        animatorHandler = GetComponentInParent<Animator>();
     }
     void Update()
     {
@@ -59,7 +61,7 @@ public class Button : MonoBehaviour
 
     void OnEnable()
     {
-        TriggerButton();
+        //TriggerButton();
     }
 
     void OnTriggerEnter(Collider player)
@@ -95,7 +97,7 @@ public class Button : MonoBehaviour
                 buttonIsOn = true;
                 TurnOnButton();
             }
-            if (multiButton == true)
+            if (multiButton == true && buttonIsOn == false)
             {
                 buttonIsOn = true;
                 print("player turned multi button on");
@@ -147,6 +149,7 @@ public class Button : MonoBehaviour
         buttonAudioSource.Stop();
         buttonAudioSource.loop = false;
         buttonAudioSource.PlayOneShot(buttonOnSound);
+        animatorHandler.SetBool("ButtonPressed", true);
     }
     private void TurnOffButton()
     {
@@ -154,5 +157,6 @@ public class Button : MonoBehaviour
         buttonAudioSource.Stop();
         buttonAudioSource.loop = false;
         buttonAudioSource.PlayOneShot(buttonOffSound);
+        animatorHandler.SetBool("ButtonPressed", false);
     }
 }

@@ -42,7 +42,7 @@ public class EnemyMovement : MonoBehaviour {
                 enemyAnimationHandler.SetBool("JustSeenPlayer", true);
             }
             playerObject = player.gameObject; 
-            Invoke("SetChasingPlayer", 1.2f);
+            Invoke("SetChasingPlayer", 0.75f);
         }
     }
 
