@@ -61,7 +61,10 @@ public class Button : MonoBehaviour
 
     void OnEnable()
     {
-        //TriggerButton();
+        if (buttonIsOn)
+        {
+            animatorHandler.SetBool("ButtonPressed", true);
+        }
     }
 
     void OnTriggerEnter(Collider player)

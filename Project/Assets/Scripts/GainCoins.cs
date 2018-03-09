@@ -8,7 +8,7 @@ public class GainCoins : MonoBehaviour {
     private bool isCoin = false;
     [SerializeField]
     private bool isSuperCoin = false;
-
+    private ParticleSystem coinParticles;
 
     private float yRotationSpeed = 45.0f;
     private float yRotation;
@@ -18,6 +18,7 @@ public class GainCoins : MonoBehaviour {
     void Start () {
 
         yRotation = GetComponent<Transform>().eulerAngles.y;
+        coinParticles = GetComponentInChildren<ParticleSystem>();
 
     }
 	
@@ -38,7 +39,7 @@ public class GainCoins : MonoBehaviour {
 
             GetComponent<Collider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
-
+            coinParticles.Play();
 
             DestroyObject(this.gameObject, 1.0f);
         }
