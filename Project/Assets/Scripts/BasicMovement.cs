@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BasicMovement : MonoBehaviour {
+
     [SerializeField]
     private float playerMovementPerSecond = 0.0f;
     [SerializeField]
@@ -31,6 +33,11 @@ public class BasicMovement : MonoBehaviour {
     public float timesSpeedBy = 30.0f;
     private float inputVertical=0.0f;
     private float inputHoriziontal = 0.0f;
+    [SerializeField]
+    private ParticleSystem jumpParticles;
+    [SerializeField]
+    private ParticleSystem secondJumpParticles;
+
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
@@ -181,12 +188,16 @@ public class BasicMovement : MonoBehaviour {
                 playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0.0f, playerRigidbody.velocity.z);
                 playerRigidbody.velocity += new Vector3(0.0f, playerJumpHeight, 0.0f);
                 jumpCounter++;
+                jumpParticles.gameObject.GetComponent<Transform>().position = transform.position;
+                //jumpParticles.gameObject.GetComponent<Transform>().position.y = jumpParticles.gameObject.GetComponent<Transform>().position.y - 1.0f;
+                jumpParticles.Play();
             }
             else if (jumpCounter <= 1 && released)
             {
                 playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0.0f, playerRigidbody.velocity.z);
                 playerRigidbody.velocity += new Vector3(0.0f, playerJumpHeight/1.5f, 0.0f);
                 jumpCounter=2;
+                secondJumpParticles.Play();
             }
             released = false;
         }
