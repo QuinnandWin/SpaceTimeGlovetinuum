@@ -37,6 +37,7 @@ public class BasicMovement : MonoBehaviour {
     private ParticleSystem jumpParticles;
     [SerializeField]
     private ParticleSystem secondJumpParticles;
+    private float distanceToGroundCheck=0.3f;
 
     void Start()
     {
@@ -54,12 +55,12 @@ public class BasicMovement : MonoBehaviour {
         //Visual indicator for jumps
         if (jumpCounter==0)
         {
-            GetComponent<Renderer>().material = NoJump;
+            //GetComponent<Renderer>().material = NoJump;
             playerAudioSource.clip = null;
         }
         else if (jumpCounter == 1)
         {
-            GetComponent<Renderer>().material = FirstJump;
+            //GetComponent<Renderer>().material = FirstJump;
             if(playerAudioSource.clip != firstJumpSound)
             { 
                 playerAudioSource.clip = firstJumpSound;
@@ -68,7 +69,7 @@ public class BasicMovement : MonoBehaviour {
         }
         else if (jumpCounter == 2)
         {
-            GetComponent<Renderer>().material = DoubleJump;
+            //GetComponent<Renderer>().material = DoubleJump;
             if (playerAudioSource.clip != secondJumpSound)
             {
                 playerAudioSource.clip = secondJumpSound;
@@ -150,11 +151,11 @@ public class BasicMovement : MonoBehaviour {
             //Velocity for second jump
             if (jumpCounter >= 2)
             {
-                maxVelocityAir = 1.5f;
+                maxVelocityAir = 1.7f;
                 if ((inputHoriziontal > 0.8 || inputHoriziontal < -0.8) &&
                     (inputVertical > 0.8 || inputVertical < -0.8))
                 {
-                    maxVelocityAir = 1.1f;
+                    maxVelocityAir = 1.25f;
                 }
                 if (newX > maxVelocityAir)
                 {
@@ -180,6 +181,8 @@ public class BasicMovement : MonoBehaviour {
         if(IsGrounded() && released)
         {
             jumpCounter = 0;
+            distanceToGroundCheck = 0.4f;
+            print("IsGrounded");
         }
         if (Input.GetAxis("Jump") > 0)
         {
@@ -188,15 +191,17 @@ public class BasicMovement : MonoBehaviour {
                 playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0.0f, playerRigidbody.velocity.z);
                 playerRigidbody.velocity += new Vector3(0.0f, playerJumpHeight, 0.0f);
                 jumpCounter++;
+                distanceToGroundCheck = 0.4f;
                 jumpParticles.gameObject.GetComponent<Transform>().position = transform.position;
-                //jumpParticles.gameObject.GetComponent<Transform>().position.y = jumpParticles.gameObject.GetComponent<Transform>().position.y - 1.0f;
                 jumpParticles.Play();
             }
             else if (jumpCounter <= 1 && released)
             {
                 playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0.0f, playerRigidbody.velocity.z);
-                playerRigidbody.velocity += new Vector3(0.0f, playerJumpHeight/1.5f, 0.0f);
+                playerRigidbody.velocity += new Vector3(0.0f, playerJumpHeight/1.25f, 0.0f);
                 jumpCounter=2;
+                distanceToGroundCheck = 0.4f;
+                secondJumpParticles.gameObject.GetComponent<Transform>().position = transform.position;
                 secondJumpParticles.Play();
             }
             released = false;
@@ -209,7 +214,7 @@ public class BasicMovement : MonoBehaviour {
 
     bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, distanceToGround + 0.1f);
+        return Physics.Raycast(transform.position + (Vector3.up * 0.1f), -Vector3.up, distanceToGroundCheck);
     }
  
 }
