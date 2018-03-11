@@ -182,7 +182,6 @@ public class BasicMovement : MonoBehaviour {
         {
             jumpCounter = 0;
             distanceToGroundCheck = 0.4f;
-            print("IsGrounded");
         }
         if (Input.GetAxis("Jump") > 0)
         {
