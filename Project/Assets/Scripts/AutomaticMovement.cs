@@ -5,11 +5,7 @@ using UnityEngine;
 public class AutomaticMovement : MonoBehaviour
 {
     [SerializeField]
-    protected float xMovementSpeed = 0.0f;
-    [SerializeField]
-    protected float yMovementSpeed = 0.0f;
-    [SerializeField]
-    protected float zMovementSpeed = 0.0f;
+    private Vector3 movementSpeed;
     [SerializeField]
     protected float xRotationSpeed = 0.0f;
     [SerializeField]
@@ -36,6 +32,7 @@ public class AutomaticMovement : MonoBehaviour
     private float tempz = 0.0f;
     private bool stopped = false;
     public bool stopTimeActivated = false;
+    private bool moving = true;
 
     // Use this for initialization
     void Start()
@@ -47,9 +44,14 @@ public class AutomaticMovement : MonoBehaviour
         movementTimeLeft = timeUntilMovementReverse;
         rotationTimeLeft = timeUntilRotationReverse;
         timeStoppedLeft = 0.0f;
-        tempx = xMovementSpeed;
-        tempy = yMovementSpeed;
-        tempz = zMovementSpeed;
+        tempx = movementSpeed.x;
+        tempy = movementSpeed.y;
+        tempz = movementSpeed.z;
+
+        if (stopsAtReverse)
+            Invoke("StopMovement", timeUntilMovementReverse);
+        else
+            Invoke("ReverseMovement", timeUntilMovementReverse);
     }
 
     // Update is called once per frame
@@ -57,16 +59,23 @@ public class AutomaticMovement : MonoBehaviour
     {
         if (stopTimeActivated == false)
         {
-            var x = Time.deltaTime * xMovementSpeed;
-            var y = Time.deltaTime * yMovementSpeed;
-            var z = Time.deltaTime * zMovementSpeed;
-            transform.Translate(x, y, z);
+            if (moving)
+            {
+                // lerp(pos1, pos2, moveTime)
+                //if(pos = pos1 || pos == pos2)
+                // stop/swap pos
+                var x = Time.deltaTime * movementSpeed.x;
+                var y = Time.deltaTime * movementSpeed.y;
+                var z = Time.deltaTime * movementSpeed.z;
+                transform.Translate(x, y, z);
+            }
 
             var xRot = Time.deltaTime * xRotationSpeed;
             var yRot = Time.deltaTime * yRotationSpeed;
             var zRot = Time.deltaTime * zRotationSpeed;
             transform.Rotate(xRot, yRot, zRot);
 
+            /*
             if (stopsAtReverse == true)
             {
                 if (timeStoppedLeft > 0)
@@ -75,23 +84,19 @@ public class AutomaticMovement : MonoBehaviour
 
                     if (stopped == false)
                     {
-                        xMovementSpeed = 0.0f;
-                        yMovementSpeed = 0.0f;
-                        zMovementSpeed = 0.0f;
-                        stopped = true;
+                        StopMovement();
                     }
                 }
             }
             if (timeStoppedLeft <= 0 && movementReverse == true)
             {
                 movementTimeLeft -= Time.deltaTime;
-                xMovementSpeed = tempx;
-                yMovementSpeed = tempy;
-                zMovementSpeed = tempz;
+                movementSpeed.x = tempx;
+                movementSpeed.y = tempy;
+                movementSpeed.z = tempz;
             }
             if (movementTimeLeft <= 0 && movementReverse == true)
             {
-
                 tempx *= -1.0f;
                 tempy *= -1.0f;
                 tempz *= -1.0f;
@@ -99,8 +104,7 @@ public class AutomaticMovement : MonoBehaviour
                 timeStoppedLeft = timePlatformIsStopped;
                 stopped = false;
             }
-
-
+            */
             rotationTimeLeft -= Time.deltaTime;
             if (rotationTimeLeft <= 0 && rotationReverse == true)
             {
@@ -110,6 +114,39 @@ public class AutomaticMovement : MonoBehaviour
                 rotationTimeLeft = timeUntilRotationReverse;
             }
         }
+    }
+
+    private void StopMovement()
+    {
+        /*
+        tempx = movementSpeed.x;
+        tempy = movementSpeed.y;
+        tempz = movementSpeed.z;
+        movementSpeed.x = 0.0f;
+        movementSpeed.y = 0.0f;
+        movementSpeed.z = 0.0f;
+        */
+        moving = false;
+
+        Invoke("ReverseMovement", timePlatformIsStopped);
+    }
+
+    private void ReverseMovement()
+    {
+        moving = true;
+        movementSpeed.x = -movementSpeed.x;
+        movementSpeed.y = -movementSpeed.y;
+        movementSpeed.z = -movementSpeed.z;
+
+        if (stopsAtReverse)
+            Invoke("StopMovement", timeUntilMovementReverse);
+        else
+            Invoke("ReverseMovement", timeUntilMovementReverse);
+    }
+
+    private void SwapMovement()
+    {
+
     }
 
     public void ToggleMovement()

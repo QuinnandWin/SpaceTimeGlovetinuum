@@ -13,6 +13,7 @@ public class MoveConnectedObject : MonoBehaviour {
     void OnTriggerExit(Collider player)
     {
             print("object exit platform");
+        if (player.transform.parent == transform)
             player.transform.parent = null;
     }
 }

@@ -38,6 +38,7 @@ public class BasicMovement : MonoBehaviour {
     [SerializeField]
     private ParticleSystem secondJumpParticles;
     private float distanceToGroundCheck=0.3f;
+    Vector3 previousInput;
 
     void Start()
     {
@@ -82,21 +83,89 @@ public class BasicMovement : MonoBehaviour {
     {
         Jump();
         Run();
+        previousInput.x = inputHoriziontal;
+        previousInput.z = inputVertical;
     }
     Vector3 direction;
     void Run()
     {
-      
+        /*if (previousInput.x != inputHoriziontal && previousInput.x != 0)
+        {
+            if (inputHoriziontal != 0)
+            {
+                playerMovementPerSecond = -playerMovementPerSecond / 2;
+            }
+            else
+                playerMovementPerSecond = 0;
+        }
+        if (previousInput.z != inputHoriziontal && previousInput.z != 0)
+        {
+            if (inputHoriziontal != 0)
+            {
+                playerMovementPerSecond = -playerMovementPerSecond / 2;
+            }
+            else
+                playerMovementPerSecond = 0;
+        }*/
+        /*
+        if (previousInput.z != inputVertical &&
+            previousInput.z != 0)
+        {
+            acceleration.z = 0;
+        }
+        if (inputHoriziontal != 0.0f)
+        {
+            acceleration.x += 5.0f * Time.unscaledDeltaTime * inputHoriziontal;
+            if (acceleration.x >= maxPlayerMovementPerSecond)
+            {
+                acceleration.x = maxPlayerMovementPerSecond;
+            }
+        }
+        else
+        {
+            acceleration.x -= 30.0f * Time.unscaledDeltaTime;
+            if (acceleration.x <= minPlayerMovementPerSecond)
+            {
+                acceleration.x = minPlayerMovementPerSecond;
+            }
+
+        }
+        if (inputVertical != 0.0f)
+        {
+            acceleration.z += 5.0f * Time.unscaledDeltaTime * inputVertical;
+            if (acceleration.z >= maxPlayerMovementPerSecond)
+            {
+                acceleration.z = maxPlayerMovementPerSecond;
+            }
+        }
+        else
+        {
+            acceleration.z -= 30.0f * Time.unscaledDeltaTime;
+            if (acceleration.z <= minPlayerMovementPerSecond)
+            {
+                acceleration.z = minPlayerMovementPerSecond;
+            }
+
+        }
+        */
+
         //Player acclerates from 0mps upto 5mps over the course of one second
+        direction = new Vector3(inputHoriziontal, 0, inputVertical);
+        
         if (inputHoriziontal != 0.0f || inputVertical != 0.0f)
         {
             direction = new Vector3(inputHoriziontal, 0, inputVertical);
-            direction.Normalize();
-
-            playerMovementPerSecond += 5.0f * Time.unscaledDeltaTime;
-            if (playerMovementPerSecond >= maxPlayerMovementPerSecond)
+            //direction.Normalize();
+            float tempMax = maxPlayerMovementPerSecond;
+            if ((inputHoriziontal > 0.5 || inputHoriziontal < -0.5) &&
+            (inputVertical > 0.5 || inputVertical < -0.5))
             {
-                playerMovementPerSecond = maxPlayerMovementPerSecond;
+                tempMax = maxPlayerMovementPerSecond * 0.7f;
+            }
+            playerMovementPerSecond += 5.0f * Time.unscaledDeltaTime;
+            if (playerMovementPerSecond >= tempMax)
+            {
+                playerMovementPerSecond = tempMax;
             }
             //print(playerMovementPerSecond);
         }
@@ -112,7 +181,7 @@ public class BasicMovement : MonoBehaviour {
         }
         if (IsGrounded())
         {
-            var x = direction.x * Time.unscaledDeltaTime * playerMovementPerSecond * timesSpeedBy;
+            var x = direction.x * Time.unscaledDeltaTime* playerMovementPerSecond *  timesSpeedBy;
             var z = direction.z * Time.unscaledDeltaTime * playerMovementPerSecond * timesSpeedBy;
 
             playerRigidbody.velocity = new Vector3(x, playerRigidbody.velocity.y, z);
@@ -133,7 +202,7 @@ public class BasicMovement : MonoBehaviour {
                 if ((inputHoriziontal > 0.8 || inputHoriziontal < -0.8) &&
                     (inputVertical > 0.8 || inputVertical < -0.8))
                 {
-                    maxVelocityAir = 2.3f;
+                    maxVelocityAir = 3.0f *0.7f;
                 }
                 if (newX > maxVelocityAir)
                 {
