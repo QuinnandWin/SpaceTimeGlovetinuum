@@ -48,10 +48,13 @@ public class AutomaticMovement : MonoBehaviour
         tempy = movementSpeed.y;
         tempz = movementSpeed.z;
 
-        if (stopsAtReverse)
-            Invoke("StopMovement", timeUntilMovementReverse);
-        else
-            Invoke("ReverseMovement", timeUntilMovementReverse);
+        if (stopTimeActivated == false)
+        {
+            if (stopsAtReverse)
+                Invoke("StopMovement", timeUntilMovementReverse);
+            else
+                Invoke("ReverseMovement", timeUntilMovementReverse);
+        }
     }
 
     // Update is called once per frame
@@ -142,11 +145,6 @@ public class AutomaticMovement : MonoBehaviour
             Invoke("StopMovement", timeUntilMovementReverse);
         else
             Invoke("ReverseMovement", timeUntilMovementReverse);
-    }
-
-    private void SwapMovement()
-    {
-
     }
 
     public void ToggleMovement()
