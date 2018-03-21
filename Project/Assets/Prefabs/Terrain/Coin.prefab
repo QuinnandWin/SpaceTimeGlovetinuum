@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4396760620098962}
   - component: {fileID: 198300148083712334}
   - component: {fileID: 199359181130194538}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CoinPickupEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 135855519977709780}
   - component: {fileID: 23988433723301638}
   - component: {fileID: 114233247711231836}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1942728691855672}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.212, y: -0.934, z: 2.461}
+  m_LocalPosition: {x: 27.51, y: -0.93, z: 0.557}
   m_LocalScale: {x: 0.39999998, y: 0.39999998, z: 0.19999999}
   m_Children:
   - {fileID: 4396760620098962}
