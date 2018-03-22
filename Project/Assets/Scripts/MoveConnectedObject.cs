@@ -6,14 +6,19 @@ public class MoveConnectedObject : MonoBehaviour {
 
     void OnTriggerEnter(Collider player)
     {
+        if (player.CompareTag("Player"))
+        {
             print("object enter platform");
             player.transform.parent = this.transform;
+        }
     }
 
     void OnTriggerExit(Collider player)
     {
-            print("object exit platform");
-        if (player.transform.parent == transform)
-            player.transform.parent = null;
+        if (player.CompareTag("Player"))
+        {
+            if (player.transform.parent == transform)
+                player.transform.parent = null;
+        }
     }
 }

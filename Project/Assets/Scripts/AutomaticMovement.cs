@@ -78,36 +78,6 @@ public class AutomaticMovement : MonoBehaviour
             var zRot = Time.deltaTime * zRotationSpeed;
             transform.Rotate(xRot, yRot, zRot);
 
-            /*
-            if (stopsAtReverse == true)
-            {
-                if (timeStoppedLeft > 0)
-                {
-                    timeStoppedLeft -= Time.deltaTime;
-
-                    if (stopped == false)
-                    {
-                        StopMovement();
-                    }
-                }
-            }
-            if (timeStoppedLeft <= 0 && movementReverse == true)
-            {
-                movementTimeLeft -= Time.deltaTime;
-                movementSpeed.x = tempx;
-                movementSpeed.y = tempy;
-                movementSpeed.z = tempz;
-            }
-            if (movementTimeLeft <= 0 && movementReverse == true)
-            {
-                tempx *= -1.0f;
-                tempy *= -1.0f;
-                tempz *= -1.0f;
-                movementTimeLeft = timeUntilMovementReverse;
-                timeStoppedLeft = timePlatformIsStopped;
-                stopped = false;
-            }
-            */
             rotationTimeLeft -= Time.deltaTime;
             if (rotationTimeLeft <= 0 && rotationReverse == true)
             {
