@@ -37,9 +37,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4219009297001298}
-  - component: {fileID: 114655762959859416}
   - component: {fileID: 114073737240602280}
   - component: {fileID: 65299867869774786}
+  - component: {fileID: 114764470521337792}
   m_Layer: 8
   m_Name: Elevator
   m_TagString: Untagged
@@ -150,8 +150,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1749978263007852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.83, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -57.25, y: -2.96, z: 3.88}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4297701309775536}
   - {fileID: 4184518055227862}
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b10d2cd9a8a388a419de9eb716395d6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114655762959859416
+--- !u!114 &114764470521337792
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -427,17 +427,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1749978263007852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d22799b24f85fb4d9c5ed3a8665cd82, type: 3}
+  m_Script: {fileID: 11500000, guid: 968e759fe45c8a14eb1385598589b531, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: {x: 0, y: -1.5, z: 0}
-  xRotationSpeed: 0
-  yRotationSpeed: 0
-  zRotationSpeed: 0
-  timeUntilMovementReverse: 1.6
-  timeUntilRotationReverse: 2
-  movementReverse: 1
-  rotationReverse: 0
+  movementSpeed: 2
+  positionToMoveOffset: {x: 6.7, y: 0, z: 0}
   stopsAtReverse: 1
-  timePlatformIsStopped: 1
-  stopTimeActivated: 0
+  timeStopped: 1
+  paused: 0

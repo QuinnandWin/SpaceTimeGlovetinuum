@@ -77,4 +77,9 @@ public class MoveBetweenPositions : MonoBehaviour {
             }
         }
 	}
+
+    public void TogglePause()
+    {
+        paused = !paused;
+    }
 }
