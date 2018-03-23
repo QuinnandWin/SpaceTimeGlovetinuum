@@ -82,4 +82,9 @@ public class MoveBetweenPositions : MonoBehaviour {
     {
         paused = !paused;
     }
+
+    public void SetPause(bool value)
+    {
+        paused = value;
+    }
 }

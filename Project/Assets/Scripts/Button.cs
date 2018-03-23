@@ -134,8 +134,11 @@ public class Button : MonoBehaviour
 
     public void ChangeButton(bool value)
     {
-        buttonIsOn = value;
-        TriggerButton();
+        if (buttonIsOn != value)
+        {
+            buttonIsOn = value;
+            TriggerButton();
+        }
     }
 
     private void TriggerButton()
