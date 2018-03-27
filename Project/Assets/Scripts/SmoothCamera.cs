@@ -12,6 +12,8 @@ public class SmoothCamera : MonoBehaviour {
     public float realZ = 0.0f;
     [SerializeField]
     private GameObject player;
+    [SerializeField]
+    public bool automaticMovementInX;
     private float currentXposition;
     private float currentYposition;
     private float currentZposition;
@@ -43,8 +45,10 @@ public class SmoothCamera : MonoBehaviour {
         }
         if (followX)
             currentXposition = Mathf.Lerp(transform.position.x, nextXPosition + player.transform.position.x, 0.1f);
-        else
+        else if (!automaticMovementInX)
             currentXposition = Mathf.Lerp(transform.position.x, nextXPosition + previousPlayerX, 0.1f);
+        else if (automaticMovementInX)
+            currentXposition = transform.position.x;
         if (followY)
             currentYposition = Mathf.Lerp(transform.position.y, nextYPosition + player.transform.position.y, 0.1f);
         else

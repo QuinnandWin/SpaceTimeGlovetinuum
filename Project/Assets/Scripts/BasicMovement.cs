@@ -26,7 +26,7 @@ public class BasicMovement : MonoBehaviour {
     private float preJumpForwardMovement = 0.0f;
     private float preJumpSidewaysMovement = 0.0f;
     private float playerMovementPreJump = 0.0f;
-    private int jumpCounter = 0;
+    public int jumpCounter = 0;
     public Material NoJump;
     public Material FirstJump;
     public Material DoubleJump;

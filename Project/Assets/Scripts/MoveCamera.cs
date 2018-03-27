@@ -39,6 +39,8 @@ public class MoveCamera : MonoBehaviour
     private bool enablesObjects = false;
     [SerializeField]
     private GameObject[] objectsToBeEnabled;
+    [SerializeField]
+    private bool automaticMovement = false;
 
     // Use this for initialization
     void Start()
@@ -93,8 +95,9 @@ public class MoveCamera : MonoBehaviour
             gameCamera.GetComponent<SmoothCamera>().followX = followX;
             gameCamera.GetComponent<SmoothCamera>().followY = followY;
             gameCamera.GetComponent<SmoothCamera>().followZ = followZ;
-           
-            for(int i = 0; i<objectsToBeDisabled.Length; i++)
+            gameCamera.GetComponent<SmoothCamera>().automaticMovementInX = automaticMovement;
+
+            for (int i = 0; i<objectsToBeDisabled.Length; i++)
             {
                 objectsToBeDisabled[i].SetActive(false);
             }
