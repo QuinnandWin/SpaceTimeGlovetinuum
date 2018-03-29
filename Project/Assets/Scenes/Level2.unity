@@ -6662,7 +6662,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh13720
+  m_Name: pb_Mesh19826
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -7368,7 +7368,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh-1730158
+  m_Name: pb_Mesh20266
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -14563,7 +14563,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh13964
+  m_Name: pb_Mesh20054
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -30005,21 +30005,21 @@ MonoBehaviour:
   player: {fileID: 2070936675}
   gameCameraObject: {fileID: 1534630845}
   gameCamera: {fileID: 1534630846}
-  followX: 1
-  followY: 1
-  followZ: 1
-  xAngle: 50
+  followX: 0
+  followY: 0
+  followZ: 0
+  xAngle: 30
   yAngle: 0
   zAngle: 0
   cameraXPosition: 0
-  cameraYPosition: 4
-  cameraZPosition: -3
+  cameraYPosition: 3
+  cameraZPosition: -5
   cameraInside: 0
   disablesObjects: 0
   objectsToBeDisabled: []
   enablesObjects: 0
   objectsToBeEnabled: []
-  automaticMovement: 0
+  automaticMovement: 1
 --- !u!64 &1671799060
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -34174,7 +34174,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh13926
+  m_Name: pb_Mesh20018
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -34446,7 +34446,7 @@ MonoBehaviour:
   objectsToBeDisabled: []
   enablesObjects: 0
   objectsToBeEnabled: []
-  automaticMovement: 0
+  automaticMovement: 1
 --- !u!64 &1907880254
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -34805,7 +34805,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh14120
+  m_Name: pb_Mesh20206
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
