@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -246,9 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d22799b24f85fb4d9c5ed3a8665cd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovementSpeed: 0
-  yMovementSpeed: 2
-  zMovementSpeed: 0
+  movementSpeed: {x: 0, y: 0, z: 0}
   xRotationSpeed: 0
   yRotationSpeed: 0
   zRotationSpeed: 0
@@ -488,9 +486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d22799b24f85fb4d9c5ed3a8665cd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovementSpeed: 2
-  yMovementSpeed: 0
-  zMovementSpeed: 0
+  movementSpeed: {x: 0, y: 0, z: 0}
   xRotationSpeed: 0
   yRotationSpeed: 0
   zRotationSpeed: 0
@@ -759,6 +755,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0fd50938c0e83d74797f4b5e9a72932e, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &153244118 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 153244117}
 --- !u!1 &153419713
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,9 +884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d22799b24f85fb4d9c5ed3a8665cd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovementSpeed: 0
-  yMovementSpeed: 0
-  zMovementSpeed: 0
+  movementSpeed: {x: 0, y: 0, z: 0}
   xRotationSpeed: 0
   yRotationSpeed: 0
   zRotationSpeed: -45
@@ -1288,9 +1286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d22799b24f85fb4d9c5ed3a8665cd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovementSpeed: 3
-  yMovementSpeed: 0
-  zMovementSpeed: 0
+  movementSpeed: {x: 0, y: 0, z: 0}
   xRotationSpeed: 0
   yRotationSpeed: 0
   zRotationSpeed: 0
@@ -1540,6 +1536,7 @@ MonoBehaviour:
   objectsToBeDisabled: []
   enablesObjects: 0
   objectsToBeEnabled: []
+  automaticMovement: 0
 --- !u!65 &264684623
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1742,7 +1739,6 @@ MonoBehaviour:
   multiButton: 0
   buttonIsOn: 0
   checkedButtonOnce: 0
-  alternativeButtons: []
   timerButton: 1
   timeGiven: 10
   timerSound: {fileID: 8300000, guid: 3e13b9e36553aad428eaffb04958e460, type: 3}
@@ -1953,6 +1949,7 @@ MonoBehaviour:
   objectsToBeDisabled: []
   enablesObjects: 0
   objectsToBeEnabled: []
+  automaticMovement: 0
 --- !u!65 &390808781
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2563,9 +2560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d22799b24f85fb4d9c5ed3a8665cd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovementSpeed: 0
-  yMovementSpeed: 0
-  zMovementSpeed: 0
+  movementSpeed: {x: 0, y: 0, z: 0}
   xRotationSpeed: 0
   yRotationSpeed: 0
   zRotationSpeed: 60
@@ -3059,6 +3054,7 @@ MonoBehaviour:
   objectsToBeDisabled: []
   enablesObjects: 0
   objectsToBeEnabled: []
+  automaticMovement: 0
 --- !u!65 &641240263
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4554,6 +4550,7 @@ MonoBehaviour:
   objectsToBeDisabled: []
   enablesObjects: 0
   objectsToBeEnabled: []
+  automaticMovement: 0
 --- !u!65 &1011273609
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4708,7 +4705,7 @@ Transform:
   m_LocalScale: {x: 0.7142857, y: 6.4562836, z: 6.7778435}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!114 &1096715550
 MonoBehaviour:
@@ -4728,6 +4725,7 @@ MonoBehaviour:
   realY: 0
   realZ: 0
   player: {fileID: 1307698924}
+  automaticMovementInX: 0
   nextXAngle: 0
   nextYAngle: 0
   nextZAngle: 0
@@ -4864,9 +4862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d22799b24f85fb4d9c5ed3a8665cd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovementSpeed: 0
-  yMovementSpeed: 0
-  zMovementSpeed: 0
+  movementSpeed: {x: 0, y: 0, z: 0}
   xRotationSpeed: 20
   yRotationSpeed: 0
   zRotationSpeed: 0
@@ -5297,10 +5293,13 @@ MonoBehaviour:
   playerJumpHeight: 6
   firstJumpSound: {fileID: 0}
   secondJumpSound: {fileID: 0}
+  jumpCounter: 0
   NoJump: {fileID: 2100000, guid: eb0b3eddf8fd557449ecea1b77800047, type: 2}
   FirstJump: {fileID: 2100000, guid: b91d9fa91b8b3df46917cf915cbdef58, type: 2}
   DoubleJump: {fileID: 2100000, guid: faa064a13542d8542bd72331415e0d19, type: 2}
   timesSpeedBy: 50
+  jumpParticles: {fileID: 0}
+  secondJumpParticles: {fileID: 0}
 --- !u!54 &1307698926
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5610,9 +5609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d22799b24f85fb4d9c5ed3a8665cd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovementSpeed: 0
-  yMovementSpeed: 0
-  zMovementSpeed: 0
+  movementSpeed: {x: 0, y: 0, z: 0}
   xRotationSpeed: 0
   yRotationSpeed: 0
   zRotationSpeed: 45
@@ -5680,23 +5677,10 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1400331688
+--- !u!1 &1400331688 stripped
 GameObject:
-  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 149790, guid: 7737647c22c1fc64a88d5cd030c352ce, type: 2}
   m_PrefabInternal: {fileID: 1829649333}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1400331690}
-  - component: {fileID: 1400331689}
-  - component: {fileID: 1400331694}
-  m_Layer: 0
-  m_Name: Missing Prefab (Dummy)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!136 &1400331689
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5710,19 +5694,6 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.7, z: 0}
---- !u!4 &1400331690
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1829649333}
-  m_GameObject: {fileID: 1400331688}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1949637815}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1400331694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5740,10 +5711,13 @@ MonoBehaviour:
   playerJumpHeight: 5
   firstJumpSound: {fileID: 0}
   secondJumpSound: {fileID: 0}
+  jumpCounter: 0
   NoJump: {fileID: 0}
   FirstJump: {fileID: 0}
   DoubleJump: {fileID: 0}
   timesSpeedBy: 30
+  jumpParticles: {fileID: 0}
+  secondJumpParticles: {fileID: 0}
 --- !u!1 &1466197923
 GameObject:
   m_ObjectHideFlags: 0
@@ -5961,7 +5935,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1493878038
 Transform:
   m_ObjectHideFlags: 0
@@ -6775,6 +6749,7 @@ MonoBehaviour:
   objectsToBeDisabled: []
   enablesObjects: 0
   objectsToBeEnabled: []
+  automaticMovement: 0
 --- !u!65 &1772328048
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6982,7 +6957,7 @@ Transform:
   m_LocalPosition: {x: 0.0511446, y: -3.2507129, z: 8.752277}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2096345068}
+  - {fileID: 153244118}
   - {fileID: 93590471}
   - {fileID: 1129478167}
   - {fileID: 102458654}
@@ -7284,9 +7259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d22799b24f85fb4d9c5ed3a8665cd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovementSpeed: 0
-  yMovementSpeed: 0
-  zMovementSpeed: 0
+  movementSpeed: {x: 0, y: 0, z: 0}
   xRotationSpeed: 0
   yRotationSpeed: 0
   zRotationSpeed: 60
@@ -7382,9 +7355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d22799b24f85fb4d9c5ed3a8665cd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovementSpeed: 4
-  yMovementSpeed: 0
-  zMovementSpeed: 0
+  movementSpeed: {x: 0, y: 0, z: 0}
   xRotationSpeed: 0
   yRotationSpeed: 0
   zRotationSpeed: 0
@@ -7436,35 +7407,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1946168331}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1949637814
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1829649333}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1949637815}
-  m_Layer: 0
-  m_Name: Missing Prefab
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1949637815
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 1829649333}
-  m_GameObject: {fileID: 1949637814}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1400331690}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2067884973
 GameObject:
   m_ObjectHideFlags: 0
@@ -7528,7 +7470,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &2079484171
 GameObject:
@@ -7574,9 +7516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d22799b24f85fb4d9c5ed3a8665cd82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMovementSpeed: 4
-  yMovementSpeed: 0
-  zMovementSpeed: 0
+  movementSpeed: {x: 0, y: 0, z: 0}
   xRotationSpeed: 0
   yRotationSpeed: 0
   zRotationSpeed: 0
@@ -7712,11 +7652,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2084798278}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &2096345068 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4968393209720540, guid: 0fd50938c0e83d74797f4b5e9a72932e,
-    type: 2}
-  m_PrefabInternal: {fileID: 153244117}
 --- !u!1 &2106828254
 GameObject:
   m_ObjectHideFlags: 0
