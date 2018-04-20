@@ -30,6 +30,8 @@ public class SmoothCamera : MonoBehaviour {
     private float previousPlayerX;
     private float previousPlayerY;
     private float previousPlayerZ;
+    public bool forceXValue = false;
+    public float forcedXValue = 0;
 
     // Use this for initialization
     void Start () {
@@ -45,7 +47,9 @@ public class SmoothCamera : MonoBehaviour {
         }
         if (followX)
             currentXposition = Mathf.Lerp(transform.position.x, nextXPosition + player.transform.position.x, 0.1f);
-        else if (!automaticMovementInX)
+        else if (!automaticMovementInX && forceXValue == true)
+            currentXposition = Mathf.Lerp(transform.position.x, nextXPosition + forcedXValue, 0.1f);
+        else if (!automaticMovementInX && forceXValue == false)
             currentXposition = Mathf.Lerp(transform.position.x, nextXPosition + previousPlayerX, 0.1f);
         else if (automaticMovementInX)
             currentXposition = transform.position.x;

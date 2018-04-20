@@ -12,6 +12,8 @@ public class ActivateMovingCamera : MonoBehaviour {
     Transform startNode;
     [SerializeField]
     float xRotation;
+    [SerializeField]
+    Collider activationCameraBox;
 
     // Use this for initialization
     void Start () {
@@ -26,12 +28,14 @@ public class ActivateMovingCamera : MonoBehaviour {
             cameraObject.GetComponent<MoveBetweenMultipleNodes>().enabled = true;
             cameraObject.transform.position = startNode.position;
             cameraObject.transform.rotation = Quaternion.Euler(xRotation, cameraObject.transform.rotation.y, cameraObject.transform.rotation.z);
+            this.GetComponent<Collider>().enabled = false;
         }
 
         else if (player.gameObject.tag == "Player" && activate == false)
         {
             cameraObject.GetComponent<SmoothCamera>().enabled = true;
             cameraObject.GetComponent<MoveBetweenMultipleNodes>().enabled = false;
+            activationCameraBox.enabled = true;
         }
     }
 }
