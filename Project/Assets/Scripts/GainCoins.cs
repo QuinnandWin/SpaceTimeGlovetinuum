@@ -41,7 +41,7 @@ public class GainCoins : MonoBehaviour {
             GetComponent<MeshRenderer>().enabled = false;
             coinParticles.Play();
 
-            DestroyObject(this.gameObject, 1.0f);
+            DestroyObject(this.gameObject, 1.5f);
         }
     }
 
