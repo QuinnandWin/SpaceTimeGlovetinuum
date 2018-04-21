@@ -14,6 +14,10 @@ public class ActivateMovingCamera : MonoBehaviour {
     float xRotation;
     [SerializeField]
     Collider activationCameraBox;
+    [SerializeField]
+    GameObject deathEdge;
+    [SerializeField]
+    GameObject originalMusic;
 
     // Use this for initialization
     void Start () {
@@ -29,6 +33,8 @@ public class ActivateMovingCamera : MonoBehaviour {
             cameraObject.transform.position = startNode.position;
             cameraObject.transform.rotation = Quaternion.Euler(xRotation, cameraObject.transform.rotation.y, cameraObject.transform.rotation.z);
             this.GetComponent<Collider>().enabled = false;
+            deathEdge.gameObject.SetActive(true);
+            originalMusic.gameObject.SetActive(false);
         }
 
         else if (player.gameObject.tag == "Player" && activate == false)
@@ -36,6 +42,8 @@ public class ActivateMovingCamera : MonoBehaviour {
             cameraObject.GetComponent<SmoothCamera>().enabled = true;
             cameraObject.GetComponent<MoveBetweenMultipleNodes>().enabled = false;
             activationCameraBox.enabled = true;
+            deathEdge.gameObject.SetActive(false);
+            originalMusic.gameObject.SetActive(true);
         }
     }
 }

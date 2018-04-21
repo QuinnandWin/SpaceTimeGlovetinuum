@@ -45,6 +45,14 @@ public class MoveCamera : MonoBehaviour
     bool forceXValue = false;
     [SerializeField]
     float forcedXValue = 0;
+    [SerializeField]
+    bool forceYValue = false;
+    [SerializeField]
+    float forcedYValue = 0;
+    [SerializeField]
+    bool forceZValue = false;
+    [SerializeField]
+    float forcedZValue = 0;
 
     // Use this for initialization
     void Start()
@@ -99,9 +107,12 @@ public class MoveCamera : MonoBehaviour
             gameCamera.GetComponent<SmoothCamera>().followX = followX;
             gameCamera.GetComponent<SmoothCamera>().followY = followY;
             gameCamera.GetComponent<SmoothCamera>().followZ = followZ;
-            gameCamera.GetComponent<SmoothCamera>().automaticMovementInX = automaticMovement;
             gameCamera.GetComponent<SmoothCamera>().forceXValue = forceXValue;
             gameCamera.GetComponent<SmoothCamera>().forcedXValue = forcedXValue;
+            gameCamera.GetComponent<SmoothCamera>().forceYValue = forceYValue;
+            gameCamera.GetComponent<SmoothCamera>().forcedYValue = forcedYValue;
+            gameCamera.GetComponent<SmoothCamera>().forceZValue = forceZValue;
+            gameCamera.GetComponent<SmoothCamera>().forcedZValue = forcedZValue;
 
             for (int i = 0; i<objectsToBeDisabled.Length; i++)
             {

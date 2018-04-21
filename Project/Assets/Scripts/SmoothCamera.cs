@@ -12,8 +12,6 @@ public class SmoothCamera : MonoBehaviour {
     public float realZ = 0.0f;
     [SerializeField]
     private GameObject player;
-    [SerializeField]
-    public bool automaticMovementInX;
     private float currentXposition;
     private float currentYposition;
     private float currentZposition;
@@ -32,6 +30,10 @@ public class SmoothCamera : MonoBehaviour {
     private float previousPlayerZ;
     public bool forceXValue = false;
     public float forcedXValue = 0;
+    public bool forceYValue = false;
+    public float forcedYValue = 0;
+    public bool forceZValue = false;
+    public float forcedZValue = 0;
 
     // Use this for initialization
     void Start () {
@@ -47,19 +49,23 @@ public class SmoothCamera : MonoBehaviour {
         }
         if (followX)
             currentXposition = Mathf.Lerp(transform.position.x, nextXPosition + player.transform.position.x, 0.1f);
-        else if (!automaticMovementInX && forceXValue == true)
+        else if (forceXValue == true)
             currentXposition = Mathf.Lerp(transform.position.x, nextXPosition + forcedXValue, 0.1f);
-        else if (!automaticMovementInX && forceXValue == false)
+        else if (forceXValue == false)
             currentXposition = Mathf.Lerp(transform.position.x, nextXPosition + previousPlayerX, 0.1f);
-        else if (automaticMovementInX)
-            currentXposition = transform.position.x;
+
         if (followY)
             currentYposition = Mathf.Lerp(transform.position.y, nextYPosition + player.transform.position.y, 0.1f);
-        else
+        else if (forceYValue == true)
+            currentYposition = Mathf.Lerp(transform.position.y, nextYPosition + forcedYValue, 0.1f);
+        else if (forceYValue == false)
             currentYposition = Mathf.Lerp(transform.position.y, nextYPosition + previousPlayerY, 0.1f);
+
         if (followZ)
             currentZposition = Mathf.Lerp(transform.position.z, nextZPosition + player.transform.position.z, 0.1f);
-        else
+        else if (forceZValue == true)
+            currentZposition = Mathf.Lerp(transform.position.z, nextZPosition + forcedZValue, 0.1f);
+        else if (forceZValue == false)
             currentZposition = Mathf.Lerp(transform.position.z, nextZPosition + previousPlayerZ, 0.1f);
 
         transform.position = new Vector3(currentXposition, currentYposition, currentZposition);
