@@ -60,7 +60,7 @@ public class LevelComplete : MonoBehaviour
 
     IEnumerator AsyncLoadOverworld()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Overworld");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Level 2");
 
         while (!asyncLoad.isDone)
         {
@@ -70,7 +70,7 @@ public class LevelComplete : MonoBehaviour
 
     void LoadOverworld()
     {
-        SceneManager.LoadScene("Overworld");
+        SceneManager.LoadScene("Level2");
     }
 
 }
