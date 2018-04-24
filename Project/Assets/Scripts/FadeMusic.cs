@@ -20,8 +20,21 @@ public class FadeMusic : MonoBehaviour
             yield return null;
         }
 
-        audioSource.Stop();
+        audioSource.gameObject.SetActive(false);
         audioSource.volume = startVolume;
+    }
+
+    public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime)
+    {
+        float endVolume = audioSource.volume;
+        audioSource.volume = 0;
+        while (audioSource.volume < endVolume)
+        {
+            audioSource.volume += endVolume * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+
     }
 
     public void ActivateFade()
