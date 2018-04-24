@@ -52,6 +52,7 @@ public class TeleportPlayer : MonoBehaviour {
     void DeathEffect()
     {
         deathSound.Play();
+
     }
 
     void EnablePlayer(GameObject player)
@@ -67,5 +68,6 @@ public class TeleportPlayer : MonoBehaviour {
 
         disableplayer = !disableplayer;
     }
+
 
 }
