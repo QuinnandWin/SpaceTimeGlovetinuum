@@ -12,6 +12,10 @@ public class TeleportPlayer : MonoBehaviour {
     private bool checkpoint = false;
     private AudioSource deathSound;
     private bool disableplayer = true;
+    [SerializeField]
+    private GameObject playerVisual;
+    [SerializeField]
+    private GameObject gameCamera;
 
     void Start()
     {
@@ -59,11 +63,12 @@ public class TeleportPlayer : MonoBehaviour {
     {
         if(disableplayer == true)
         {
-            player.SetActive(false);
+            gameCamera.GetComponent<SmoothCamera>().enabled = false;
         }
         else if (disableplayer == false)
         {
-            player.SetActive(true);
+            gameCamera.GetComponent<SmoothCamera>().enabled = true;
+            player.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         }
 
         disableplayer = !disableplayer;

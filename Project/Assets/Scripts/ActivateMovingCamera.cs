@@ -18,6 +18,8 @@ public class ActivateMovingCamera : MonoBehaviour {
     GameObject deathEdge;
     [SerializeField]
     GameObject originalMusic;
+    [SerializeField]
+    bool movingCameraLevel = true;
 
     // Use this for initialization
     void Start () {
@@ -40,9 +42,12 @@ public class ActivateMovingCamera : MonoBehaviour {
         else if (player.gameObject.tag == "Player" && activate == false)
         {
             cameraObject.GetComponent<SmoothCamera>().enabled = true;
-            cameraObject.GetComponent<MoveBetweenMultipleNodes>().enabled = false;
-            activationCameraBox.enabled = true;
-            deathEdge.gameObject.SetActive(false);
+            if (movingCameraLevel == true)
+            {
+                cameraObject.GetComponent<MoveBetweenMultipleNodes>().enabled = false;
+                activationCameraBox.enabled = true;
+                deathEdge.gameObject.SetActive(false);
+            }
             originalMusic.gameObject.SetActive(true);
         }
     }
