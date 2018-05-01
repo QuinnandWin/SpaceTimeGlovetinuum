@@ -13,8 +13,6 @@ public class TeleportPlayer : MonoBehaviour {
     private AudioSource deathSound;
     private bool disableplayer = true;
     [SerializeField]
-    private GameObject playerVisual;
-    [SerializeField]
     private GameObject gameCamera;
 
     void Start()
