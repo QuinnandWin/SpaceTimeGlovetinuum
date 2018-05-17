@@ -7,6 +7,18 @@ public class CoinCage : MonoBehaviour {
     [SerializeField]
     private float coinsRequired = 100;
     private float coinsAquired;
+    private AudioSource cageUnlock;
+    [SerializeField]
+    private GameObject cageObject;
+    [SerializeField]
+    private ParticleSystem cageEffect;
+
+    void Awake()
+    {
+        cageUnlock = GetComponent<AudioSource>();
+
+
+    }
 
     void OnTriggerEnter(Collider player)
     {
@@ -15,7 +27,10 @@ public class CoinCage : MonoBehaviour {
             coinsAquired = CoinManager.coins;
             if(coinsAquired>=coinsRequired)
             {
-                Destroy(this.gameObject, 0.0f);
+                cageUnlock.Play();
+                cageObject.SetActive(false);
+                cageEffect.Play();
+                Destroy(this.gameObject, 1.0f);
             }
             else
             {

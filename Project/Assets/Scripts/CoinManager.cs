@@ -17,6 +17,9 @@ public class CoinManager : MonoBehaviour {
     private int previousCoinCount;
     private int previousSuperCoinCount;
     private AudioSource coinPickup;
+    [SerializeField]
+    private AudioClip coinsComplete;
+
 
 
     void Awake()
@@ -30,6 +33,7 @@ public class CoinManager : MonoBehaviour {
         {
             // Reset the score.
             coins = 0;
+            superCoins = 0;
         }
     }
 
@@ -40,26 +44,34 @@ public class CoinManager : MonoBehaviour {
             if (coins == 0)
             {
                 // Set the displayed text to be the word "Score" followed by the score value.
-                coinText.text = "Coins: 000";
+                coinText.text = "Coins 000 / 100";
             }
             else if (coins < 10)
             {
                 // Set the displayed text to be the word "Score" followed by the score value.
-                coinText.text = "Coins: 00" + coins;
+                coinText.text = "Coins 00" + coins + " / 100";
             }
             else if (coins < 100)
             {
                 // Set the displayed text to be the word "Score" followed by the score value.
-                coinText.text = "Coins: 0" + coins;
+                coinText.text = "Coins 0" + coins + " / 100";
             }
             else if (coins > 100)
             {
                 // Set the displayed text to be the word "Score" followed by the score value.
-                coinText.text = "Coins:" + coins;
+                coinText.text = "Coins" + coins + " / 100";
+                coinText.color = Color.green;
             }
             if (coins > previousCoinCount)
             {
-                coinPickup.Play();
+                if (coins == 100)
+                {
+                    coinPickup.PlayOneShot(coinsComplete, 1.0F);
+                }
+                else
+                {
+                    coinPickup.Play();
+                }
                 previousCoinCount = coins;
             }
         }
@@ -75,7 +87,7 @@ public class CoinManager : MonoBehaviour {
     {
         if (superCoinUI)
         {
-            coinText.text = "SuperCoins: " + superCoins + "/4";
+            coinText.text = "SuperCoins " + superCoins + " / 4";
         }
     }
 }

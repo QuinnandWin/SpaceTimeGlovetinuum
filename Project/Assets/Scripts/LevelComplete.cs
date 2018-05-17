@@ -12,6 +12,10 @@ public class LevelComplete : MonoBehaviour
     private Animator endAnimator;
     [SerializeField]
     private GameObject musicObject;
+    private ParticleSystem coinParticles;
+
+    [SerializeField]
+    private string levelToLoad = "Level2";
 
     private float yRotationSpeed = 45.0f;
     private float yRotation;
@@ -21,6 +25,7 @@ public class LevelComplete : MonoBehaviour
     {
         endAudioSource = GetComponent<AudioSource>();
         endAnimator = GetComponent<Animator>();
+        coinParticles = GetComponentInChildren<ParticleSystem>();
 
         yRotation = GetComponent<Transform>().eulerAngles.y;
     }
@@ -37,6 +42,7 @@ public class LevelComplete : MonoBehaviour
         if (player.gameObject.tag == "Player")
         {
             playerObject = player.gameObject;
+            
             EndLevel();
             Invoke("LoadOverworld", 5.0f);
             //StartCoroutine(AsyncLoadOverworld());
@@ -45,22 +51,22 @@ public class LevelComplete : MonoBehaviour
 
     void EndLevel()
     {
-        playerObject.GetComponent<BasicMovement>().enabled = false;
-        playerObject.GetComponent<Collider>().enabled = false;
-        playerObject.GetComponent<Rigidbody>().isKinematic = true;
+        /* playerObject.GetComponent<BasicMovement>().enabled = false;
+         playerObject.GetComponent<Collider>().enabled = false;
+         playerObject.GetComponent<Rigidbody>().isKinematic = true;*/
 
+        GetComponent<Collider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
+
+        coinParticles.Play();
         musicObject.SetActive(false);
         endAudioSource.clip = levelEndClip;
         endAudioSource.Play();
-
-        endAnimator.SetBool("LevelComplete", true);
-        playerObject.GetComponent<Animator>().enabled = true;
-        playerObject.GetComponent<Animator>().SetBool("LevelComplete", true);
     }
 
     IEnumerator AsyncLoadOverworld()
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Level 2");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelToLoad);
 
         while (!asyncLoad.isDone)
         {
@@ -70,7 +76,7 @@ public class LevelComplete : MonoBehaviour
 
     void LoadOverworld()
     {
-        SceneManager.LoadScene("Level2");
+        SceneManager.LoadScene(levelToLoad);
     }
 
 }

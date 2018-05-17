@@ -31,6 +31,8 @@ public class SimpleCharacterControl : MonoBehaviour {
     private float m_jumpTimeStamp = 0;
     private float m_minJumpInterval = 0.25f;
 
+    private float distanceToGroundCheck = 0.3f;
+
     private bool m_isGrounded;
     private List<Collider> m_collisions = new List<Collider>();
 
@@ -88,6 +90,13 @@ public class SimpleCharacterControl : MonoBehaviour {
     }
 
 	void Update () {
+        if (IsGrounded() == true)
+        {
+            m_isGrounded = true;
+        }
+        else
+            m_isGrounded = false;
+
         m_animator.SetBool("Grounded", m_isGrounded);
 
         switch(m_controlMode)
@@ -106,6 +115,11 @@ public class SimpleCharacterControl : MonoBehaviour {
         }
 
         m_wasGrounded = m_isGrounded;
+    }
+
+    bool IsGrounded()
+    {
+        return Physics.Raycast(transform.position + (Vector3.up * 0.1f), -Vector3.up, distanceToGroundCheck);
     }
 
     private void TankUpdate()

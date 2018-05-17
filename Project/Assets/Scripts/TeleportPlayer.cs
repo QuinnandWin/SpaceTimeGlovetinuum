@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
 
 public class TeleportPlayer : MonoBehaviour {
 
@@ -14,6 +16,9 @@ public class TeleportPlayer : MonoBehaviour {
     private bool disableplayer = true;
     [SerializeField]
     private GameObject gameCamera;
+    [SerializeField]
+    private UnityEvent checkpointEvents;
+    private bool firstTime = true;
 
     void Start()
     {
@@ -34,6 +39,11 @@ public class TeleportPlayer : MonoBehaviour {
             else
             {
                 tempDeathObjects.GetComponent<TeleportPlayer>().teleportLocation = this.gameObject;
+                if (firstTime == true)
+                {
+                    checkpointEvents.Invoke();
+                    DisableCheckpointEffects();
+                }
             }
             
         }
@@ -70,6 +80,11 @@ public class TeleportPlayer : MonoBehaviour {
         }
 
         disableplayer = !disableplayer;
+    }
+
+    void DisableCheckpointEffects()
+    {
+        firstTime = false;
     }
 
 
